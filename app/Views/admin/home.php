@@ -65,7 +65,7 @@
                 <div class="card-body py-4 px-4">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-xl">
-                            <img src="./assets/compiled/jpg/1.jpg" alt="Face 1" />
+                            <img src="<?= base_url(); ?>/assets/compiled/jpg/1.jpg" alt="Face 1" />
                         </div>
                         <div class="ms-3 name">
                             <h5 class="font-bold">John Duck</h5>
@@ -77,13 +77,48 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Profile Visit</h4>
                 </div>
                 <div class="card-body">
                     <div id="chart-profile-visit"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Pengajuan Terbaru</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-lg">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-auto">
+                                        <p class="mb-0">
+                                            Congratulations on your graduation!
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-auto">
+                                        <p class="mb-0">
+                                            Wow amazing design! Can you make another
+                                            tutorial for this design?
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -14,8 +14,8 @@ class Auth implements FilterInterface
             return redirect()->to('/login');
         }
         if (!empty($arguments[0])) {
-            if ($_SESSION['roles'] !== $arguments[0]) {
-                return redirect()->to('admin');
+            if ($_SESSION['role'] !== $arguments[0]) {
+                return redirect()->to('/');
             }
         }
     }

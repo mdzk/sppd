@@ -29,11 +29,26 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/admin', function () {
-    echo 'mantap';
-}, ['as' => 'home', 'filter' => 'auth:admin']);
+// $routes->get('/admin', function () {
+//     echo 'mantap';
+// }, ['as' => 'home', 'filter' => 'auth:admin']);
 
+$routes->get('/', 'Home::index', ['as' => 'home', 'filter' => 'auth']);
+
+// Users Section
+$routes->get('/users', 'Users::index', ['as' => 'users', 'filter' => 'auth:admin']);
+$routes->post('/users/add', 'Users::add', ['as' => 'users-add', 'filter' => 'auth:admin']);
+$routes->post('/users/delete', 'Users::delete', ['as' => 'users-delete', 'filter' => 'auth:admin']);
+$routes->post('/users/update', 'Users::update', ['as' => 'users-update', 'filter' => 'auth:admin']);
+
+// Authentication Section
+$routes->get('/login', 'Auth::index', ['as' => 'login']);
+$routes->post('/login/auth', 'Auth::auth', ['as' => 'auth']);
+$routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
+
+// Setting Section
+$routes->get('/setting', 'Setting::index', ['as' => 'setting', 'filter' => 'auth']);
+$routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', 'filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

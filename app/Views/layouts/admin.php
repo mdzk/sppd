@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app-dark.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/iconly.css" />
+
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.css" />
 </head>
 
 <body>
@@ -52,40 +54,60 @@
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
 
-                        <li class="sidebar-item active">
-                            <a href="index.html" class="sidebar-link">
+                        <li class="sidebar-item <?= get_url(2, '') ? 'active' : '' ?>">
+                            <a href="<?= route_to('home'); ?>" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item <?= get_url(3, 'article') ? 'active' : '' ?>">
-                            <a href="<?= route_to('article'); ?>" class='sidebar-link'>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>SPT</span>
                             </a>
+
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="auth-login.html" class="submenu-link">Diajukan</a>
+                                </li>
+
+                                <li class="submenu-item">
+                                    <a href="auth-register.html" class="submenu-link">Diterima</a>
+                                </li>
+
+                            </ul>
                         </li>
 
                         <li class="sidebar-item">
                             <a href="index.html" class="sidebar-link">
-                                <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <i class="bi bi-receipt"></i>
+                                <span>Kwitansi</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-title">Raise Support</li>
+                        <?php if ($_SESSION['role'] == 'admin') : ?>
+                            <li class="sidebar-item <?= get_url(2, 'users') ? 'active' : '' ?>">
+                                <a href="<?= route_to('users'); ?>" class='sidebar-link'>
+                                    <i class="bi bi-people-fill"></i>
+                                    <span>Kelola Akun</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
 
-                        <li class="sidebar-item">
-                            <a href="https://zuramai.github.io/mazer/docs" class="sidebar-link">
-                                <i class="bi bi-life-preserver"></i>
-                                <span>Documentation</span>
+                        <li class="sidebar-title">Pengaturan</li>
+
+                        <li class="sidebar-item <?= get_url(2, 'setting') ? 'active' : '' ?>">
+                            <a href="<?= route_to('setting'); ?>" class='sidebar-link'>
+                                <i class="bi bi-gear-fill"></i>
+                                <span>Kelola Akun</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class="sidebar-link">
-                                <i class="bi bi-puzzle"></i>
-                                <span>Contribute</span>
+                            <a href="<?= route_to('logout'); ?>" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Keluar</span>
                             </a>
                         </li>
 
@@ -122,10 +144,25 @@
     <script src="<?= base_url(); ?>/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
     <script src="<?= base_url(); ?>/assets/compiled/js/app.js"></script>
+    <script src="<?= base_url(); ?>/assets/extensions/jquery/jquery.min.js"></script>
+
 
     <!-- Need: Apexcharts -->
     <script src="<?= base_url(); ?>/assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="<?= base_url(); ?>/assets/static/js/pages/dashboard.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                '<?= session()->getFlashdata('pesan'); ?>',
+                'success'
+            )
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>
