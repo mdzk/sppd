@@ -49,6 +49,13 @@ $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
 // Setting Section
 $routes->get('/setting', 'Setting::index', ['as' => 'setting', 'filter' => 'auth']);
 $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', 'filter' => 'auth']);
+
+
+// Surat Section
+$routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
+$routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth']);
+$routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
+$routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

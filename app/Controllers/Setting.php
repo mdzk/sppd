@@ -17,7 +17,9 @@ class Setting extends BaseController
 
     public function update()
     {
-
+        $user = new UsersModel();
+        $data = $user->find($this->request->getVar('id_users'));
+        $id = $data['id_users'];
         if ($this->validate([
             'name' => [
                 'label' => 'Nama',
@@ -26,13 +28,21 @@ class Setting extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'username' => [
+                'label' => 'Username',
+                'rules' => "required|is_unique[users.username, id_users, $id]",
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                    'is_unique' => 'Username sudah digunakan, cari yang lain!'
+                ]
+            ],
         ])) {
-            $user = new UsersModel();
-            $data = $user->find($this->request->getVar('id_users'));
+
             $user->replace([
                 'id_users' => $this->request->getVar('id_users'),
                 'name' => $this->request->getVar('name') ? $this->request->getVar('name') : $data['name'],
                 'username' => $this->request->getVar('username') ? $this->request->getVar('username') : $data['username'],
+                'role' => $data['role'],
                 'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ]);
 

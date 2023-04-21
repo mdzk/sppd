@@ -18,6 +18,14 @@
                 </nav>
             </div>
         </div>
+        <?php if ($errors = session()->getFlashdata('errors')) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+                <?php foreach ($errors as $key => $value) { ?>
+                    <li><?= esc($value) ?></li>
+                <?php } ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Basic Tables start -->
@@ -210,12 +218,12 @@
                                                                         <option value="admin" <?php if ($user['role'] == 'admin') {
                                                                                                     echo 'selected';
                                                                                                 } ?>>Admin</option>
-                                                                        <option value="staff" <?php if ($user['role'] == 'user') {
+                                                                        <option value="user" <?php if ($user['role'] == 'user') {
                                                                                                     echo 'selected';
                                                                                                 } ?>>User</option>
-                                                                        <option value="staff" <?php if ($user['role'] == 'pimpinan') {
-                                                                                                    echo 'selected';
-                                                                                                } ?>>Pimpinan</option>
+                                                                        <option value="pimpinan" <?php if ($user['role'] == 'pimpinan') {
+                                                                                                        echo 'selected';
+                                                                                                    } ?>>Pimpinan</option>
                                                                     </select>
                                                                 </div>
 
@@ -226,6 +234,9 @@
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-lock"></i>
                                                                         </div>
+                                                                        <p>
+                                                                            <small class="text-muted">*Kosongkan jika tidak ingin mengubah password</small>
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
