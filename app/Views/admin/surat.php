@@ -44,32 +44,72 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Graiden</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
-                            <td>076 4820 8838</td>
-                            <td>Offenburg</td>
-                            <td>
-                                <a href="" class="btn btn-light-primary btn-icon action-icon">
-                                    <span class="fonticon-wrap">
-                                        <i class="bi bi-eye-fill"></i>
-                                    </span>
-                                </a>
+                        <?php
+                        foreach ($surats as $surat) :
+                        ?>
+                            <tr>
+                                <td><?= $surat['nama']; ?></td>
+                                <td><?= $surat['tanggal_pelaksanaan']; ?></td>
+                                <td><?= $surat['tempat']; ?></td>
+                                <td><?= $surat['created_at']; ?></td>
+                                <td>
+                                    <a href="" class="btn btn-light-primary btn-icon action-icon">
+                                        <span class="fonticon-wrap">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </span>
+                                    </a>
 
-                                <a href="" class="btn btn-light-warning btn-icon action-icon">
-                                    <span class="fonticon-wrap">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </span>
-                                </a>
+                                    <a href="<?= base_url(''); ?>diajukan/edit/<?= $surat['id_surat_tugas']; ?>" class="btn btn-light-warning btn-icon action-icon">
+                                        <span class="fonticon-wrap">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </span>
+                                    </a>
 
-                                <a href="" class="btn btn-light-danger btn-icon action-icon">
-                                    <span class="fonticon-wrap">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </span>
-                                </a>
+                                    <button class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#hapussurat<?= $surat['id_surat_tugas']; ?>">
+                                        <span class=" fonticon-wrap">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </span>
+                                    </button>
 
-                            </td>
-                        </tr>
+                                    <!--Hapus Surat Modal Content -->
+                                    <div class="modal fade text-left modal-borderless" id="hapussurat<?= $surat['id_surat_tugas']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Peringatan</h5>
+                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+
+                                                <form action="<?= route_to('diajukan-delete'); ?>" method="POST">
+
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            Apakah anda yakin ingin menghapus SPT ini?
+                                                        </p>
+                                                    </div>
+                                                    <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
+
+                                                            <span class="d-sm-block">Tidak</span>
+                                                        </button>
+                                                        <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+
+                                                            <span class="d-sm-block">Ya</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Hapus Surat Modal Content End-->
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

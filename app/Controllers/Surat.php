@@ -10,7 +10,20 @@ class Surat extends BaseController
     {
 
         $surat = new SuratModel();
-        return view('admin/surat');
+        $data = [
+            'surats'  => $surat->orderBy('created_at', 'DESC')->findAll(),
+        ];
+        return view('admin/surat', $data);
+    }
+
+    public function edit($id)
+    {
+
+        $surat = new SuratModel();
+        $data = [
+            'surat'  => $surat->find($id),
+        ];
+        return view('admin/surat-edit', $data);
     }
 
     public function add()
@@ -80,40 +93,71 @@ class Surat extends BaseController
     public function update()
     {
         $user = new SuratModel();
-        $data = $user->find($this->request->getVar('id_users'));
-        $id = $data['id_users'];
+        $data = $user->find($this->request->getVar('id_surat'));
+        $id = $data['id_surat_tugas'];
         if ($this->validate([
-            'name' => [
+            'nama' => [
                 'label' => 'Nama',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'username' => [
-                'label' => 'Username',
-                'rules' => "required|is_unique[users.username, id_users, $id]",
+            'nomor' => [
+                'label' => 'nomor',
+                'rules' => "required|is_unique[surat_tugas.nomor, id_surat_tugas, $id]",
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
-                    'is_unique' => 'Username sudah digunakan, cari yang lain!'
+                    'is_unique' => '{field} sudah digunakan, cari yang lain!'
+                ]
+            ],
+            'dasar' => [
+                'label' => 'dasar',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'tanggal_pelaksanaan' => [
+                'label' => 'Tanggal Pelaksanaan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'tempat' => [
+                'label' => 'tempat',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
                 ]
             ],
         ])) {
 
             $user->replace([
-                'id_users' => $this->request->getVar('id_users'),
-                'name' => $this->request->getVar('name') ? $this->request->getVar('name') : $data['name'],
-                'username' => $this->request->getVar('username') ? $this->request->getVar('username') : $data['username'],
-                'role' => $data['role'],
-                'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+                'id_surat_tugas' => $this->request->getVar('id_surat'),
+                'nama' => $this->request->getVar('nama'),
+                'nomor' => $this->request->getVar('nomor'),
+                'dasar' => $this->request->getVar('dasar'),
+                'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
+                'tempat' => $this->request->getVar('tempat'),
+                'status' => "diajukan",
             ]);
 
-            session()->setFlashdata('pesan', 'Data berhasil diedit');
-            return redirect()->to('setting');
+            session()->setFlashdata('pesan', 'SPT berhasil diedit');
+            return redirect()->to('diajukan');
         } else {
             // JIKA TIDAK VALID
             Session()->setFlashdata('errors', \config\Services::validation()->getErrors());
-            return redirect()->to('setting');
+            return redirect()->to('diajukan/add');
         }
+    }
+
+    public function delete()
+    {
+        $surat = new SuratModel();
+        $surat->delete($this->request->getVar('id_surat'));
+        session()->setFlashdata('pesan', 'SPT berhasil dihapus');
+        return redirect()->to('diajukan');
     }
 }

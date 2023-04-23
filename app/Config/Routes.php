@@ -54,7 +54,10 @@ $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', '
 // Surat Section
 $routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
 $routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth']);
+$routes->get('/diajukan/edit/(:num)', 'Surat::edit/$1', ['as' => 'diajukan-edit', 'filter' => 'auth']);
 $routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
+$routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth']);
+$routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth']);
 $routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
