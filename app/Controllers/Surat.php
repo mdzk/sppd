@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\PegawaiModel;
 use App\Models\SuratModel;
 
 class Surat extends BaseController
@@ -159,5 +160,19 @@ class Surat extends BaseController
         $surat->delete($this->request->getVar('id_surat'));
         session()->setFlashdata('pesan', 'SPT berhasil dihapus');
         return redirect()->to('diajukan');
+    }
+
+    public function show($id)
+    {
+        $surat = new SuratModel();
+        $data = $surat->find($id);
+        $id = $data['id_surat_tugas'];
+
+        $pegawai = new PegawaiModel();
+        $data = [
+            'surat'  => $surat->find($id),
+            'pegawai'  => $pegawai->where('id_surat_tugas', $id)->findAll(),
+        ];
+        return view('admin/surat-show', $data);
     }
 }

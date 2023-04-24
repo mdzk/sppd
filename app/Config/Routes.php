@@ -50,15 +50,20 @@ $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
 $routes->get('/setting', 'Setting::index', ['as' => 'setting', 'filter' => 'auth']);
 $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', 'filter' => 'auth']);
 
-
 // Surat Section
 $routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
 $routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth']);
 $routes->get('/diajukan/edit/(:num)', 'Surat::edit/$1', ['as' => 'diajukan-edit', 'filter' => 'auth']);
+$routes->get('/diajukan/detail/(:num)', 'Surat::show/$1', ['as' => 'diajukan-show', 'filter' => 'auth']);
 $routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
 $routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth']);
 $routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth']);
 $routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
+
+// Pegawai Section
+$routes->post('/pegawai/save', 'Pegawai::save', ['as' => 'pegawai-save', 'filter' => 'auth']);
+$routes->post('/pegawai/update', 'Pegawai::update', ['as' => 'pegawai-update', 'filter' => 'auth']);
+$routes->post('/pegawai/delete', 'Pegawai::delete', ['as' => 'pegawai-delete', 'filter' => 'auth']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

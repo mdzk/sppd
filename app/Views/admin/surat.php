@@ -37,9 +37,9 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
+                            <th>Tanggal Diajukan</th>
                             <th>Tanggal Pelaksanaan</th>
                             <th>Tempat Pelaksanaan</th>
-                            <th>Tanggal diajukan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,11 +49,11 @@
                         ?>
                             <tr>
                                 <td><?= $surat['nama']; ?></td>
-                                <td><?= $surat['tanggal_pelaksanaan']; ?></td>
+                                <td><?= tanggal($surat['created_at']); ?></td>
+                                <td><?= tanggal($surat['tanggal_pelaksanaan']); ?></td>
                                 <td><?= $surat['tempat']; ?></td>
-                                <td><?= $surat['created_at']; ?></td>
                                 <td>
-                                    <a href="" class="btn btn-light-primary btn-icon action-icon">
+                                    <a href="<?= base_url('diajukan/detail/' . $surat['id_surat_tugas']); ?>" class="btn btn-light-primary btn-icon action-icon">
                                         <span class="fonticon-wrap">
                                             <i class="bi bi-eye-fill"></i>
                                         </span>

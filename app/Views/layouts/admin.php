@@ -97,12 +97,12 @@
                             </li>
                         <?php endif; ?>
 
-                        <li class="sidebar-title">Pengaturan</li>
+                        <li class="sidebar-title">Lainnya</li>
 
                         <li class="sidebar-item <?= get_url(2, 'setting') ? 'active' : '' ?>">
                             <a href="<?= route_to('setting'); ?>" class='sidebar-link'>
                                 <i class="bi bi-gear-fill"></i>
-                                <span>Kelola Akun</span>
+                                <span>Pengaturan</span>
                             </a>
                         </li>
 
