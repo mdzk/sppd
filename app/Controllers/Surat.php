@@ -50,8 +50,8 @@ class Surat extends BaseController
                     'is_unique' => '{field} sudah digunakan, cari yang lain!'
                 ]
             ],
-            'dasar' => [
-                'label' => 'dasar',
+            'waktu' => [
+                'label' => 'waktu',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
@@ -76,7 +76,7 @@ class Surat extends BaseController
             $surat->save([
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
-                'dasar' => $this->request->getVar('dasar'),
+                'waktu' => $this->request->getVar('waktu'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
@@ -112,8 +112,8 @@ class Surat extends BaseController
                     'is_unique' => '{field} sudah digunakan, cari yang lain!'
                 ]
             ],
-            'dasar' => [
-                'label' => 'dasar',
+            'waktu' => [
+                'label' => 'waktu',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
@@ -138,7 +138,7 @@ class Surat extends BaseController
             $data = [
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
-                'dasar' => $this->request->getVar('dasar'),
+                'waktu' => $this->request->getVar('waktu'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
@@ -189,6 +189,7 @@ class Surat extends BaseController
 
         $data = [
             'status' => "diterima",
+            'tanggal_ttd' => tanggal(now()),
         ];
         $user->set($data);
         $user->where('id_surat_tugas', $this->request->getVar('id_surat'));

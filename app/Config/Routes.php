@@ -34,6 +34,8 @@ $routes->setAutoRoute(false);
 // }, ['as' => 'home', 'filter' => 'auth:admin']);
 
 $routes->get('/', 'Home::index', ['as' => 'home', 'filter' => 'auth']);
+$routes->get('/pdf/generate', 'PdfController::generate');
+$routes->get('/pdf', 'PdfController::index');
 
 // Users Section
 $routes->get('/users', 'Users::index', ['as' => 'users', 'filter' => 'auth:admin']);

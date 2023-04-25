@@ -50,68 +50,67 @@
                                 </div>
                                 <div class="col-auto">
                                     <?php
-                                        if($surat['status'] == 'diajukan'):
+                                    if ($surat['status'] == 'diajukan') :
                                     ?>
-                                    <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                        <span class="fonticon-wrap">
-                                            <i class="bi bi-check me-1"></i>
-                                        </span> Terima SPT
-                                    </button>
+                                        <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                            <span class="fonticon-wrap">
+                                                <i class="bi bi-check me-1"></i>
+                                            </span> Terima SPT
+                                        </button>
 
-                                    <!-- Start Modal -->
-                                    <div class="modal fade text-left modal-borderless" id="setujispt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Peringatan</h5>
-                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                        <i data-feather="x"></i>
-                                                    </button>
+                                        <!-- Start Modal -->
+                                        <div class="modal fade text-left modal-borderless" id="setujispt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Peringatan</h5>
+                                                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                            <i data-feather="x"></i>
+                                                        </button>
+                                                    </div>
+
+                                                    <form action="<?= route_to('diajukan-accept'); ?>" method="POST">
+
+                                                        <div class="modal-body">
+                                                            <p>
+                                                                Apakah anda yakin ingin menerima SPT ini?
+                                                            </p>
+                                                        </div>
+                                                        <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
+
+                                                                <span class="d-sm-block">Tidak</span>
+                                                            </button>
+                                                            <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                                                <span class="d-sm-block">Ya</span>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
                                                 </div>
-
-                                                <form action="<?= route_to('diajukan-accept'); ?>" method="POST">
-
-                                                    <div class="modal-body">
-                                                        <p>
-                                                            Apakah anda yakin ingin menerima SPT ini?
-                                                        </p>
-                                                    </div>
-                                                    <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
-
-                                                            <span class="d-sm-block">Tidak</span>
-                                                        </button>
-                                                        <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-
-                                                            <span class="d-sm-block">Ya</span>
-                                                        </button>
-                                                    </div>
-                                                </form>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- End Modal -->
-                                    <?php endif;?>
+                                        <!-- End Modal -->
+                                    <?php endif; ?>
                                     <?php
-                                        if($surat['status'] == 'diterima'):
+                                    if ($surat['status'] == 'diterima') :
                                     ?>
-                                    <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                        SPT Diterima
-                                    </button>
-                                    <button class="btn btn-light-primary btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                        <span class="fonticon-wrap">
-                                            <i class="bi bi-printer-fill me-1"></i>
-                                        </span> Cetak SPT
-                                    </button>
+                                        <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                            SPT Diterima
+                                        </button>
+                                        <button class="btn btn-light-primary btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                            <span class="fonticon-wrap">
+                                                <i class="bi bi-printer-fill me-1"></i>
+                                            </span> Cetak SPT
+                                        </button>
                                     <?php endif; ?>
                                 </div>
                             </div>
 
-                            <h6>Dasar</h6>
+                            <h6>Nama Kegiatan</h6>
                             <div class="alert bg-light-primary">
-                                <p class="fs-6"><?= $surat['dasar']; ?></p>
+                                <p class="fs-6"><?= $surat['nama']; ?></p>
                             </div>
                             <div class="row">
                                 <div class=" col-lg-4 col-md-4 col-sm-12">
@@ -188,7 +187,8 @@
                                         <div class="name ms-4">
                                             <h5 class="mb-1"><?= $data['nama']; ?></h5>
                                             <h6 class="text-muted mb-0"><?= $data['nip']; ?></h6>
-                                            <h6 class="text-muted mb-0"><?= $data['jabatan']; ?> <?= $data['pangkat']; ?></h6>
+                                            <h6 class="text-muted mb-0"><?= $data['pangkat']; ?></h6>
+                                            <h6 class="text-muted mb-0"><?= $data['jabatan']; ?></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +246,7 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="pangkat">Pangkat</label>
+                                                                    <label for="pangkat">Pangkat/Gol</label>
                                                                     <input type="text" value="<?= $data['pangkat']; ?>" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
                                                                     <p>
                                                                         <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
@@ -337,7 +337,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="pangkat">Pangkat</label>
+                                                    <label for="pangkat">Pangkat/Gol</label>
                                                     <input type="text" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
                                                     <p>
                                                         <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>

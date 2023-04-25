@@ -49,10 +49,10 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="first-name-horizontal">Nama Surat</label>
+                                            <label for="first-name-horizontal">Nama Kegiatan</label>
                                         </div>
                                         <div class="col-md-9 form-group">
-                                            <input autofocus required type="text" id="first-name-horizontal" class="form-control" name="nama" placeholder="Masukkan Nama Surat" />
+                                            <input autofocus required type="text" id="first-name-horizontal" class="form-control" name="nama" placeholder="Masukkan Nama Kegiatan" />
                                         </div>
                                         <div class="col-md-3">
                                             <label for="email-horizontal">Nomor Surat</label>
@@ -60,17 +60,23 @@
                                         <div class="col-md-9 form-group">
                                             <input required type="text" id="email-horizontal" class="form-control" name="nomor" placeholder="Masukkan Nomor Surat" />
                                         </div>
-                                        <div class="col-md-3">
+                                        <!-- <div class="col-md-3">
                                             <label for="dasar-surat">Dasar Surat</label>
                                         </div>
                                         <div class="col-md-9 form-group">
                                             <textarea required name="dasar" id="dasar-surat" class="form-control" cols="30" rows="5" placeholder="Masukkan Dasar Surat"></textarea>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-3">
                                             <label for="tanggal-pelaksanaan">Tanggal Pelaksanaan</label>
                                         </div>
                                         <div class="col-md-9 form-group">
                                             <input required type="date" id="tanggal-pelaksanaan" class="form-control" name="tanggal_pelaksanaan" placeholder="Password" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="waktu-pelaksanaan">Waktu Pelaksanaan</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input required type="text" id="waktu-pelaksanaan" class="form-control" name="waktu" placeholder="Pukul 08.00 WIB s.d Selesai" />
                                         </div>
                                         <div class="col-md-3">
                                             <label for="tempat-pelaksanaan">Tempat Pelaksanaan</label>
