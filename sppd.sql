@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 24, 2023 at 02:36 AM
+-- Generation Time: Apr 25, 2023 at 05:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -53,11 +53,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
-(1, 'Muhammad Dzaky', '123123', 'Senior', 'Engineer', 7),
-(2, 'jkj', 'jk', 'k', 'kjk', 8),
-(3, 'baru', 'knk', 'nk', 'amsdlknm', 8),
-(4, 'Rival', '1231', 'Junior', 'Teknisi', 7),
-(5, 'Pegawai Surat C 1', 'Pegawai Surat C 1', 'Pegawai Surat C 1', 'Pegawai Surat C 1', 9);
+(3, 'Muhammad Dzaky', '324932498923', 'VII a', 'Teknisi', 8);
 
 -- --------------------------------------------------------
 
@@ -83,9 +79,7 @@ CREATE TABLE `surat_tugas` (
 --
 
 INSERT INTO `surat_tugas` (`id_surat_tugas`, `nama`, `nomor`, `dasar`, `status`, `tanggal_pelaksanaan`, `tanggal_ttd`, `tempat`, `created_at`, `updated_at`) VALUES
-(7, 'Pelatihan E-Kinerja', '123. 44 ed#s', 'Lorem Ipsum dolor sit Amet', 'diajukan', '2022-10-30', NULL, 'SMA N9 Bandar Lampung', '2023-04-24 04:48:10', '2023-04-24 04:48:10'),
-(8, 'Surat B', '123123', 'nkjnn', 'diajukan', '2023-12-31', NULL, 'kjn', '2023-04-24 07:32:51', '2023-04-24 07:32:51'),
-(9, 'Surat C', 'C', 'C', 'diajukan', '2023-12-31', NULL, 'C', '2023-04-24 07:33:27', '2023-04-24 07:33:27');
+(8, 'Kunjungan Pariwisata Edit', '113. 2323. /n 12 #3', 'Lorem Ipsum dolor sit amet', 'diterima', '2023-12-31', NULL, 'SMA Negeri 9 Bandar Lampung', '2023-04-10 22:59:31', '2023-04-25 22:34:17');
 
 -- --------------------------------------------------------
 
@@ -151,7 +145,7 @@ ALTER TABLE `kwitansi`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`

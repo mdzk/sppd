@@ -43,8 +43,71 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                            <h6>Nomor Surat</h6>
-                            <p class="fs-5 fw-bold"><?= $surat['nomor']; ?></p>
+                            <div class="row d-flex justify-content-between">
+                                <div class="col">
+                                    <h6>Nomor Surat</h6>
+                                    <p class="fs-5 fw-bold"><?= $surat['nomor']; ?></p>
+                                </div>
+                                <div class="col-auto">
+                                    <?php
+                                        if($surat['status'] == 'diajukan'):
+                                    ?>
+                                    <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                        <span class="fonticon-wrap">
+                                            <i class="bi bi-check me-1"></i>
+                                        </span> Terima SPT
+                                    </button>
+
+                                    <!-- Start Modal -->
+                                    <div class="modal fade text-left modal-borderless" id="setujispt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Peringatan</h5>
+                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+
+                                                <form action="<?= route_to('diajukan-accept'); ?>" method="POST">
+
+                                                    <div class="modal-body">
+                                                        <p>
+                                                            Apakah anda yakin ingin menerima SPT ini?
+                                                        </p>
+                                                    </div>
+                                                    <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
+
+                                                            <span class="d-sm-block">Tidak</span>
+                                                        </button>
+                                                        <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+
+                                                            <span class="d-sm-block">Ya</span>
+                                                        </button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Modal -->
+                                    <?php endif;?>
+                                    <?php
+                                        if($surat['status'] == 'diterima'):
+                                    ?>
+                                    <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                        SPT Diterima
+                                    </button>
+                                    <button class="btn btn-light-primary btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                        <span class="fonticon-wrap">
+                                            <i class="bi bi-printer-fill me-1"></i>
+                                        </span> Cetak SPT
+                                    </button>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
 
                             <h6>Dasar</h6>
                             <div class="alert bg-light-primary">
@@ -116,13 +179,126 @@
                     </div>
                     <div class="card-content pb-4">
                         <?php foreach ($pegawai as $data) : ?>
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="avatar avatar-lg">
-                                    <img src="<?= base_url(); ?>/assets/compiled/jpg/<?= rand(1, 8) ?>.jpg" />
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="recent-message d-flex px-4 py-3">
+                                        <div class="avatar avatar-lg">
+                                            <img src="<?= base_url(); ?>/assets/compiled/jpg/<?= rand(1, 8) ?>.jpg" />
+                                        </div>
+                                        <div class="name ms-4">
+                                            <h5 class="mb-1"><?= $data['nama']; ?></h5>
+                                            <h6 class="text-muted mb-0"><?= $data['nip']; ?></h6>
+                                            <h6 class="text-muted mb-0"><?= $data['jabatan']; ?> <?= $data['pangkat']; ?></h6>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="name ms-4">
-                                    <h5 class="mb-1"><?= $data['nama']; ?></h5>
-                                    <h6 class="text-muted mb-0"><?= $data['jabatan']; ?></h6>
+                                <div class="col-md-3">
+                                    <div class="px-4 py-3">
+                                        <div class="d-flex align-items-center justify-content-end">
+
+                                            <ul class="list-inline m-0 d-flex">
+                                                <li class="list-inline-item mail-delete">
+                                                    <button type="button" class="btn btn-light-primary btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#editpegawai<?= $data['id_pegawai']; ?>">
+                                                        <span class="fonticon-wrap d-inline">
+                                                            <i class="bi bi-pencil-fill"></i>
+                                                        </span>
+                                                    </button>
+                                                </li>
+                                                <li class="list-inline-item mail-unread">
+                                                    <button type="button" class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#border-less<?= $data['id_pegawai']; ?>">
+                                                        <span class="fonticon-wrap d-inline">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade text-left modal-borderless" id="editpegawai<?= $data['id_pegawai']; ?>">
+                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                    <form action="<?= route_to('pegawai-update'); ?>" method="POST">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Edit Pegawai</h5>
+                                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="name">Nama</label>
+                                                                    <input required value="<?= $data['nama']; ?>" type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="jabatan">Jabatan</label>
+                                                                    <input required value="<?= $data['jabatan']; ?>" type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="nip">NIP</label>
+                                                                    <input type="text" value="<?= $data['nip']; ?>" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
+                                                                    <p>
+                                                                        <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="pangkat">Pangkat</label>
+                                                                    <input type="text" value="<?= $data['pangkat']; ?>" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
+                                                                    <p>
+                                                                        <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
+                                                                    </p>
+                                                                </div>
+                                                                <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                                <input name="id_pegawai" value="<?= $data['id_pegawai']; ?>" hidden>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                    <span class="d-sm-block">Submit</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <!-- Edit Modal End -->
+
+                                            <!--BorderLess Modal Content -->
+                                            <div class="modal fade text-left modal-borderless" id="border-less<?= $data['id_pegawai']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Peringatan</h5>
+                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+                                                        <form action="<?= route_to('pegawai-delete'); ?>" method="POST">
+                                                            <div class="modal-body">
+                                                                <p>
+                                                                    Apakah anda yakin ingin menghapus pegawai ini?
+                                                                </p>
+                                                            </div>
+
+                                                            <input type="number" hidden value="<?= $data['id_pegawai']; ?>" name="id_pegawai">
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                                                    <span class="d-sm-block">Tidak</span>
+                                                                </button>
+
+                                                                <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                                                    <span class="d-sm-block">Ya</span>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -132,7 +308,6 @@
                             </button>
                             <div class="modal fade text-left modal-borderless" id="tambahpegawai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable" role="document">
-
                                     <form action="<?= route_to('pegawai-save'); ?>" method="POST">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -145,28 +320,33 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="name">Nama</label>
-                                                    <input type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
+                                                    <input required type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="jabatan">Jabatan</label>
-                                                    <input type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
+                                                    <input required type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="nip">NIP</label>
                                                     <input type="text" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
+                                                    <p>
+                                                        <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
+                                                    </p>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="pangkat">Pangkat</label>
                                                     <input type="text" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
+                                                    <p>
+                                                        <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
+                                                    </p>
                                                 </div>
                                                 <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
                                             </div>
                                             <div class="modal-footer">
                                                 <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-
                                                     <span class="d-sm-block">Submit</span>
                                                 </button>
                                             </div>
@@ -178,6 +358,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </div>

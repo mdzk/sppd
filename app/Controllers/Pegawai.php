@@ -46,7 +46,7 @@ class Pegawai extends BaseController
     public function update()
     {
         $pegawai = new PegawaiModel();
-        $id_spt = $this->request->getVar('id_surat_tugas');
+        $id_spt = $this->request->getVar('id_surat');
         if ($this->validate([
             'nama' => [
                 'label' => 'Nama',
@@ -66,9 +66,10 @@ class Pegawai extends BaseController
 
             $pegawai->replace([
                 'id_pegawai' => $this->request->getVar('id_pegawai'),
+                'nama' => $this->request->getVar('nama'),
+                'jabatan' => $this->request->getVar('jabatan'),
                 'nip' => $this->request->getVar('nip'),
                 'pangkat' => $this->request->getVar('pangkat'),
-                'jabatan' => $this->request->getVar('jabatan'),
                 'id_surat_tugas' => $id_spt,
             ]);
 
@@ -86,6 +87,6 @@ class Pegawai extends BaseController
         $pegawai = new PegawaiModel();
         $pegawai->delete($this->request->getVar('id_pegawai'));
         session()->setFlashdata('pesan', 'Pegawai berhasil dihapus');
-        return redirect()->to('diajukan');
+        return redirect()->back();
     }
 }

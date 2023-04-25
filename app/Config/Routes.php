@@ -58,6 +58,7 @@ $routes->get('/diajukan/detail/(:num)', 'Surat::show/$1', ['as' => 'diajukan-sho
 $routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
 $routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth']);
 $routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth']);
+$routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth']);
 $routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
 
 // Pegawai Section

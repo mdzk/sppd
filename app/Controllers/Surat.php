@@ -12,7 +12,7 @@ class Surat extends BaseController
 
         $surat = new SuratModel();
         $data = [
-            'surats'  => $surat->orderBy('created_at', 'DESC')->findAll(),
+            'surats'  => $surat->where('status', 'diajukan')->orderBy('created_at', 'DESC')->findAll(),
         ];
         return view('admin/surat', $data);
     }
@@ -135,15 +135,17 @@ class Surat extends BaseController
             ],
         ])) {
 
-            $user->replace([
-                'id_surat_tugas' => $this->request->getVar('id_surat'),
+            $data = [
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
                 'dasar' => $this->request->getVar('dasar'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
-            ]);
+            ];
+            $user->set($data);
+            $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $user->update();
 
             session()->setFlashdata('pesan', 'SPT berhasil diedit');
             return redirect()->to('diajukan');
@@ -157,6 +159,10 @@ class Surat extends BaseController
     public function delete()
     {
         $surat = new SuratModel();
+        $pegawai = new PegawaiModel();
+        $data = $surat->find($this->request->getVar('id_surat'));
+
+        $pegawai->where('id_surat_tugas', $data['id_surat_tugas'])->delete();
         $surat->delete($this->request->getVar('id_surat'));
         session()->setFlashdata('pesan', 'SPT berhasil dihapus');
         return redirect()->to('diajukan');
@@ -174,5 +180,21 @@ class Surat extends BaseController
             'pegawai'  => $pegawai->where('id_surat_tugas', $id)->findAll(),
         ];
         return view('admin/surat-show', $data);
+    }
+
+    public function accept()
+    {
+        $user = new SuratModel();
+        $data = $user->find($this->request->getVar('id_surat'));
+
+        $data = [
+            'status' => "diterima",
+        ];
+        $user->set($data);
+        $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $user->update();
+
+        session()->setFlashdata('pesan', 'SPT berhasil diterima');
+        return redirect()->to('diajukan');
     }
 }
