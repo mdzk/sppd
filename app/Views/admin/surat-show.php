@@ -16,11 +16,8 @@
                         <li class="breadcrumb-item">
                             <a href="index.html">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="index.html">SPT</a>
-                        </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Diajukan
+                            SPT
                         </li>
                     </ol>
                 </nav>
@@ -94,16 +91,249 @@
                                         <!-- End Modal -->
                                     <?php endif; ?>
                                     <?php
-                                    if ($surat['status'] == 'diterima') :
+                                    if ($surat['status'] !== 'diajukan') :
                                     ?>
-                                        <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                            SPT Diterima
-                                        </button>
-                                        <button class="btn btn-light-primary btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                            <span class="fonticon-wrap">
-                                                <i class="bi bi-printer-fill me-1"></i>
-                                            </span> Cetak SPT
-                                        </button>
+
+                                        <form method="POST" class="d-inline" action="<?= route_to('pdf-spt'); ?>">
+                                            <input hidden name="id_surat" value="<?= $surat['id_surat_tugas']; ?>">
+                                            <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                                SPT <?= $surat['status'] == 'diterima' ? 'Diterima' : 'Selesai'; ?>
+                                            </button>
+
+                                            <button name="submit" type="submit" class="btn btn-light-primary btn-icon action-icon fw-bold h-auto">
+                                                <span class="fonticon-wrap">
+                                                    <i class="bi bi-printer-fill me-1"></i>
+                                                </span> Cetak SPT
+                                            </button>
+                                        </form>
+                                        <?php if (empty($kwitansi[0])) : ?>
+                                            <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#kwitansi">
+                                                <span class="fonticon-wrap">
+                                                    <i class="bi bi-receipt me-1"></i>
+                                                </span> Ajukan Kwitansi
+                                            </button>
+
+
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($kwitansi[0])) : ?>
+
+
+                                            <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#lihatkwitansi">
+                                                <span class="fonticon-wrap">
+                                                    <i class="bi bi-receipt me-1"></i>
+                                                </span> Lihat Kwitansi
+                                            </button>
+
+
+
+                                            <!-- Lihat Kwitansi Modal -->
+                                            <div class="modal fade text-left modal-borderless" id="lihatkwitansi">
+                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Detail Kwitansi</h5>
+                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="name">No Kwitansi</label>
+                                                                <input required disabled value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="jabatan">Nominal</label>
+                                                                <input required disabled value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="jabatan">Terbilang</label>
+                                                                <input required disabled value="<?= terbilang($kwitansi[0]['nominal']); ?>" type="text" class="form-control text-capitalize" placeholder="Masukkan Nominal" id="jabatan">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="jabatan">Status Kwintasi</label>
+                                                                <p class="badge bg-<?= $kwitansi[0]['status'] == 'diajukan' ? 'danger' : 'success'; ?>"> <?= $kwitansi[0]['status']; ?></p>
+                                                            </div>
+
+                                                            <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                        </div>
+                                                        <?php if ($kwitansi[0]['status'] == 'diterima') : ?>
+                                                            <div class="modal-footer">
+                                                                <form action="<?= route_to('pdf-kwitansi'); ?>" method="post">
+                                                                    <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                                    <button name="submit" type="submit" class="btn btn-primary btn-icon action-icon fw-bold h-auto">
+                                                                        <span class="fonticon-wrap">
+                                                                            <i class="bi bi-printer-fill me-1"></i>
+                                                                        </span> Cetak Kwitansi
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Lihat Kwitansi Modal End -->
+
+                                            <?php if ($kwitansi[0]['status'] == "diajukan") : ?>
+                                                <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#editkwitansi">
+                                                    <span class="fonticon-wrap">
+                                                        <i class="bi bi-pencil-fill me-1"></i>
+                                                    </span> Edit Kwitansi
+                                                </button>
+
+                                                <!-- Edit Kwitansi Modal -->
+                                                <div class="modal fade text-left modal-borderless" id="editkwitansi">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                        <form action="<?= route_to('kwitansi-update'); ?>" method="POST">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detail Kwitansi</h5>
+                                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i data-feather="x"></i>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="name">No Kwitansi</label>
+                                                                        <input required value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="jabatan">Nominal</label>
+                                                                        <input required value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                                    </div>
+
+                                                                    <input name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi']; ?>" hidden>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                        <span class="d-sm-block">Submit</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Kwitansi Modal End -->
+                                            <?php endif; ?>
+
+                                            <?php if ($surat['bukti'] == NULL && $kwitansi[0]['status'] == 'diterima') : ?>
+                                                <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
+                                                    <span class="fonticon-wrap">
+                                                        <i class="bi bi-upload me-1"></i>
+                                                    </span> Upload Bukti
+                                                </button>
+
+                                                <!-- Bukti Modal -->
+                                                <div class="modal fade text-left modal-borderless" id="bukti">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                        <?= form_open_multipart('diterima/finish'); ?>
+
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Bukti SPT</h5>
+                                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="file">Pilih Gambar</label>
+                                                                    <input required type="file" name="bukti" class="form-control" id="file" accept="image/png, image/jpeg">
+                                                                </div>
+                                                                <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                    <span class="d-sm-block">Submit</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <?php echo form_close() ?>
+
+                                                    </div>
+                                                </div>
+                                                <!-- Bukti Modal End -->
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+
+
+                                        <?php if ($surat['bukti'] !== NULL) : ?>
+                                            <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
+                                                <span class="fonticon-wrap">
+                                                    <i class="bi bi-card-image me-1"></i>
+                                                </span> Lihat Bukti
+                                            </button>
+
+                                            <!-- Bukti Modal -->
+                                            <div class="modal fade text-left modal-borderless" id="bukti">
+                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Bukti SPT</h5>
+                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <img src="<?= base_url('bukti/' . $surat['bukti']); ?>" width="100%" alt="">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- Bukti Modal End -->
+                                        <?php endif; ?>
+
+                                        <!-- Ajukan Kwitansi Modal -->
+                                        <div class="modal fade text-left modal-borderless" id="kwitansi">
+                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                <form action="<?= route_to('kwitansi-save'); ?>" method="POST">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Buat Kwitansi</h5>
+                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                <i data-feather="x"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="name">No Kwitansi</label>
+                                                                <input required type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="jabatan">Nominal</label>
+                                                                <input required type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                            </div>
+
+                                                            <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                <span class="d-sm-block">Submit</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- Ajukan Kwitansi Modal End -->
+
+
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -112,8 +342,10 @@
                             <div class="alert bg-light-primary">
                                 <p class="fs-6"><?= $surat['nama']; ?></p>
                             </div>
+                            <h6>Dasar Surat</h6>
+                            <p class="fs-6"><?= $surat['dasar']; ?></p>
                             <div class="row">
-                                <div class=" col-lg-4 col-md-4 col-sm-12">
+                                <div class=" col-lg-3 col-md-3 col-sm-12">
                                     <div class="card mb-0">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row d-flex flex-row">
@@ -130,7 +362,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" col-lg-4 col-md-4 col-sm-12">
+                                <div class=" col-lg-3 col-md-3 col-sm-12">
                                     <div class="card mb-0">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row d-flex flex-row">
@@ -147,7 +379,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" col-lg-4 col-md-4 col-sm-12">
+                                <div class=" col-lg-3 col-md-3 col-sm-12">
+                                    <div class="card mb-0">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row d-flex flex-row">
+                                                <div class="col-md-auto">
+                                                    <div class="stats-icon purple mb-2 float-none">
+                                                        <i class="iconly-boldTime-Circle"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-auto">
+                                                    <h6 class="text-muted font-semibold">Waktu Pelaksanaan</h6>
+                                                    <h6 class="font-extrabold mb-0">Pukul <?= $surat['waktu']; ?></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-lg-3 col-md-3 col-sm-12">
                                     <div class="card mb-0">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row d-flex flex-row">
@@ -174,7 +423,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Daftar Pegawai</h4>
+                        <h4>Memerintahkan</h4>
                     </div>
                     <div class="card-content pb-4">
                         <?php foreach ($pegawai as $data) : ?>
@@ -192,116 +441,123 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="px-4 py-3">
-                                        <div class="d-flex align-items-center justify-content-end">
+                                <?php
+                                if ($surat['status'] == 'diajukan') :
+                                ?>
+                                    <div class="col-md-3">
+                                        <div class="px-4 py-3">
+                                            <div class="d-flex align-items-center justify-content-end">
 
-                                            <ul class="list-inline m-0 d-flex">
-                                                <li class="list-inline-item mail-delete">
-                                                    <button type="button" class="btn btn-light-primary btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#editpegawai<?= $data['id_pegawai']; ?>">
-                                                        <span class="fonticon-wrap d-inline">
-                                                            <i class="bi bi-pencil-fill"></i>
-                                                        </span>
-                                                    </button>
-                                                </li>
-                                                <li class="list-inline-item mail-unread">
-                                                    <button type="button" class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#border-less<?= $data['id_pegawai']; ?>">
-                                                        <span class="fonticon-wrap d-inline">
-                                                            <i class="bi bi-trash-fill"></i>
-                                                        </span>
-                                                    </button>
-                                                </li>
-                                            </ul>
+                                                <ul class="list-inline m-0 d-flex">
+                                                    <li class="list-inline-item mail-delete">
+                                                        <button type="button" class="btn btn-light-primary btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#editpegawai<?= $data['id_pegawai']; ?>">
+                                                            <span class="fonticon-wrap d-inline">
+                                                                <i class="bi bi-pencil-fill"></i>
+                                                            </span>
+                                                        </button>
+                                                    </li>
+                                                    <li class="list-inline-item mail-unread">
+                                                        <button type="button" class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#border-less<?= $data['id_pegawai']; ?>">
+                                                            <span class="fonticon-wrap d-inline">
+                                                                <i class="bi bi-trash-fill"></i>
+                                                            </span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
 
-                                            <!-- Edit Modal -->
-                                            <div class="modal fade text-left modal-borderless" id="editpegawai<?= $data['id_pegawai']; ?>">
-                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                <!-- Edit Modal -->
+                                                <div class="modal fade text-left modal-borderless" id="editpegawai<?= $data['id_pegawai']; ?>">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
 
-                                                    <form action="<?= route_to('pegawai-update'); ?>" method="POST">
+                                                        <form action="<?= route_to('pegawai-update'); ?>" method="POST">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Edit Pegawai</h5>
+                                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <i data-feather="x"></i>
+                                                                    </button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="name">Nama</label>
+                                                                        <input required value="<?= $data['nama']; ?>" type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="jabatan">Jabatan</label>
+                                                                        <input required value="<?= $data['jabatan']; ?>" type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="nip">NIP</label>
+                                                                        <input type="text" value="<?= $data['nip']; ?>" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
+                                                                        <p>
+                                                                            <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="pangkat">Pangkat/Gol</label>
+                                                                        <input type="text" value="<?= $data['pangkat']; ?>" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
+                                                                        <p>
+                                                                            <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
+                                                                        </p>
+                                                                    </div>
+                                                                    <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                                    <input name="id_pegawai" value="<?= $data['id_pegawai']; ?>" hidden>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                        <span class="d-sm-block">Submit</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <!-- Edit Modal End -->
+
+                                                <!--BorderLess Modal Content -->
+                                                <div class="modal fade text-left modal-borderless" id="border-less<?= $data['id_pegawai']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Edit Pegawai</h5>
+                                                                <h5 class="modal-title">Peringatan</h5>
                                                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                                                                     <i data-feather="x"></i>
                                                                 </button>
                                                             </div>
-
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="name">Nama</label>
-                                                                    <input required value="<?= $data['nama']; ?>" type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="jabatan">Jabatan</label>
-                                                                    <input required value="<?= $data['jabatan']; ?>" type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="nip">NIP</label>
-                                                                    <input type="text" value="<?= $data['nip']; ?>" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
+                                                            <form action="<?= route_to('pegawai-delete'); ?>" method="POST">
+                                                                <div class="modal-body">
                                                                     <p>
-                                                                        <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
+                                                                        Apakah anda yakin ingin menghapus pegawai ini?
                                                                     </p>
                                                                 </div>
 
-                                                                <div class="form-group">
-                                                                    <label for="pangkat">Pangkat/Gol</label>
-                                                                    <input type="text" value="<?= $data['pangkat']; ?>" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
-                                                                    <p>
-                                                                        <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
-                                                                    </p>
+                                                                <input type="number" hidden value="<?= $data['id_pegawai']; ?>" name="id_pegawai">
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                                                        <span class="d-sm-block">Tidak</span>
+                                                                    </button>
+
+                                                                    <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                                                        <span class="d-sm-block">Ya</span>
+                                                                    </button>
                                                                 </div>
-                                                                <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
-                                                                <input name="id_pegawai" value="<?= $data['id_pegawai']; ?>" hidden>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-                                                                    <span class="d-sm-block">Submit</span>
-                                                                </button>
-                                                            </div>
+                                                            </form>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <!-- Edit Modal End -->
-
-                                            <!--BorderLess Modal Content -->
-                                            <div class="modal fade text-left modal-borderless" id="border-less<?= $data['id_pegawai']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Peringatan</h5>
-                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                                <i data-feather="x"></i>
-                                                            </button>
-                                                        </div>
-                                                        <form action="<?= route_to('pegawai-delete'); ?>" method="POST">
-                                                            <div class="modal-body">
-                                                                <p>
-                                                                    Apakah anda yakin ingin menghapus pegawai ini?
-                                                                </p>
-                                                            </div>
-
-                                                            <input type="number" hidden value="<?= $data['id_pegawai']; ?>" name="id_pegawai">
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                                                    <span class="d-sm-block">Tidak</span>
-                                                                </button>
-
-                                                                <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
-                                                                    <span class="d-sm-block">Ya</span>
-                                                                </button>
-                                                            </div>
-                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php
+                    if ($surat['status'] == 'diajukan') :
+                    ?>
                         <div class="px-4">
                             <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3" data-bs-toggle="modal" data-bs-target="#tambahpegawai">
                                 Tambah Pegawai
@@ -355,6 +611,7 @@
                                 </div>
                             </div>
                         </div>
+                    <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\KwitansiModel;
 use App\Models\PegawaiModel;
 use App\Models\SuratModel;
 
@@ -15,6 +16,26 @@ class Surat extends BaseController
             'surats'  => $surat->where('status', 'diajukan')->orderBy('created_at', 'DESC')->findAll(),
         ];
         return view('admin/surat', $data);
+    }
+
+    public function diterima()
+    {
+
+        $surat = new SuratModel();
+        $data = [
+            'surats'  => $surat->where('status', 'diterima')->orderBy('created_at', 'DESC')->findAll(),
+        ];
+        return view('admin/surat-diterima', $data);
+    }
+
+    public function selesai()
+    {
+
+        $surat = new SuratModel();
+        $data = [
+            'surats'  => $surat->where('status', 'selesai')->orderBy('created_at', 'DESC')->findAll(),
+        ];
+        return view('admin/surat-selesai', $data);
     }
 
     public function edit($id)
@@ -57,6 +78,13 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'dasar' => [
+                'label' => 'Dasar Surat',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
             'tanggal_pelaksanaan' => [
                 'label' => 'Tanggal Pelaksanaan',
                 'rules' => 'required',
@@ -76,7 +104,8 @@ class Surat extends BaseController
             $surat->save([
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
-                'waktu' => $this->request->getVar('waktu'),
+                'waktu' => $this->request->getVar('waktu') . ' s.d ' . $this->request->getVar('waktu2'),
+                'dasar' => $this->request->getVar('dasar'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
@@ -119,6 +148,13 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'dasar' => [
+                'label' => 'Dasar Surat',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
             'tanggal_pelaksanaan' => [
                 'label' => 'Tanggal Pelaksanaan',
                 'rules' => 'required',
@@ -138,7 +174,8 @@ class Surat extends BaseController
             $data = [
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
-                'waktu' => $this->request->getVar('waktu'),
+                'waktu' => $this->request->getVar('waktu') . ' s.d ' . $this->request->getVar('waktu2'),
+                'dasar' => $this->request->getVar('dasar'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
@@ -171,6 +208,7 @@ class Surat extends BaseController
     public function show($id)
     {
         $surat = new SuratModel();
+        $kwitansi = new KwitansiModel();
         $data = $surat->find($id);
         $id = $data['id_surat_tugas'];
 
@@ -178,6 +216,7 @@ class Surat extends BaseController
         $data = [
             'surat'  => $surat->find($id),
             'pegawai'  => $pegawai->where('id_surat_tugas', $id)->findAll(),
+            'kwitansi'  => $kwitansi->where('id_surat_tugas', $id)->findAll(),
         ];
         return view('admin/surat-show', $data);
     }
@@ -189,7 +228,7 @@ class Surat extends BaseController
 
         $data = [
             'status' => "diterima",
-            'tanggal_ttd' => tanggal(now()),
+            'tanggal_ttd' => date('Y-m-d H:i:s'),
         ];
         $user->set($data);
         $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
@@ -197,5 +236,43 @@ class Surat extends BaseController
 
         session()->setFlashdata('pesan', 'SPT berhasil diterima');
         return redirect()->to('diajukan');
+    }
+
+    public function finish()
+    {
+
+        if ($this->validate([
+            'bukti' => [
+                'label' => 'bukti',
+                'rules' => 'uploaded[bukti]|max_size[bukti,1024]|mime_in[bukti,image/png,image/jpg,image/jpeg,image/svg]',
+                'errors' => [
+                    'uploaded' => '{field} Wajib diisi!',
+                    'max_size' => 'Ukuran {field} max 1024 Kb',
+                    'mime_in' => 'Format {field} wajib png, jpg, jpeg, dan svg',
+                ]
+            ],
+        ])) {
+            $user = new SuratModel();
+
+            $file = $this->request->getFile('bukti');
+            $nama_file = $file->getRandomName();
+
+            $data = [
+                'status' => "selesai",
+                'bukti'  => $nama_file,
+            ];
+
+            $user->set($data);
+            $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $user->update();
+
+            $file->move('bukti', $nama_file);
+
+            session()->setFlashdata('pesan', 'Bukti berhasil diupload');
+            return redirect()->back();
+        } else {
+            Session()->setFlashdata('errors', \config\Services::validation()->getErrors());
+            return redirect()->back();
+        }
     }
 }

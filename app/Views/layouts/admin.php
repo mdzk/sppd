@@ -63,7 +63,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item <?= get_url(2, 'diajukan') ? 'active' : '' ?> <?= get_url(2, 'users') ? 'diterima' : '' ?> has-sub">
+                        <li class="sidebar-item <?= get_url(2, 'diajukan') ? 'active' : '' ?> <?= get_url(2, 'diterima') ? 'active' : '' ?> <?= get_url(2, 'selesai') ? 'active' : '' ?> has-sub">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>SPT</span>
@@ -78,11 +78,15 @@
                                     <a href="<?= base_url('diterima'); ?>" class="submenu-link">Diterima</a>
                                 </li>
 
+                                <li class="submenu-item <?= get_url(2, 'selesai') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('selesai'); ?>" class="submenu-link">Selesai</a>
+                                </li>
+
                             </ul>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a href="index.html" class="sidebar-link">
+                        <li class="sidebar-item <?= get_url(2, 'kwitansi') ? 'active' : '' ?>">
+                            <a href="<?= route_to('kwitansi'); ?>" class="sidebar-link">
                                 <i class="bi bi-receipt"></i>
                                 <span>Kwitansi</span>
                             </a>
