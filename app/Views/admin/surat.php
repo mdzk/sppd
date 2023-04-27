@@ -27,9 +27,9 @@
             </div>
         </div>
     </div>
-
-    <a class="btn btn-primary rounded-pill mb-4" href="<?= base_url('diajukan/add'); ?>">Ajukan SPT Baru</a>
-
+    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'user') : ?>
+        <a class="btn btn-primary rounded-pill mb-4" href="<?= base_url('diajukan/add'); ?>">Ajukan SPT Baru</a>
+    <?php endif; ?>
     <section class="section">
         <div class="card">
             <div class="card-body">
