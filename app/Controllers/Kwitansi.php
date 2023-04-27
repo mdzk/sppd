@@ -47,7 +47,7 @@ class Kwitansi extends BaseController
                 'nominal' => $this->request->getVar('nominal'),
                 'no_kwitansi' => $this->request->getVar('no_kwitansi'),
                 'id_surat_tugas' => $this->request->getVar('id_surat_tugas'),
-                'status' => "diajukan",
+                'status_kwitansi' => "diajukan",
             ]);
 
             session()->setFlashdata('pesan', 'Kwitansi berhasil diajukan');
@@ -84,7 +84,7 @@ class Kwitansi extends BaseController
             $data = [
                 'nominal' => $this->request->getVar('nominal'),
                 'no_kwitansi' => $this->request->getVar('no_kwitansi'),
-                'status' => "diajukan",
+                'status_kwitansi' => "diajukan",
             ];
             $kwitansi->set($data);
             $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));
@@ -97,5 +97,20 @@ class Kwitansi extends BaseController
             Session()->setFlashdata('errors', \config\Services::validation()->getErrors());
             return redirect()->back();
         }
+    }
+
+    public function accept()
+    {
+        $kwitansi = new KwitansiModel();
+        $data = [
+            'status_kwitansi' => "diterima",
+            'tanggal_verifikasi' => date('Y-m-d H:i:s'),
+        ];
+        $kwitansi->set($data);
+        $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));
+        $kwitansi->update();
+
+        session()->setFlashdata('pesan', 'Kwitansi berhasil diterima');
+        return redirect()->back();
     }
 }

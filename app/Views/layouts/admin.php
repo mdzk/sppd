@@ -155,6 +155,13 @@
 
     <!-- Need: Apexcharts -->
     <script src="<?= base_url(); ?>/assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script>
+        var wtf = $.ajax({
+            url: "<?= base_url() . '/api/terlaksana'; ?>",
+            async: false,
+            dataType: 'json'
+        }).responseJSON;
+    </script>
     <script src="<?= base_url(); ?>/assets/static/js/pages/dashboard.js"></script>
 
     <!-- Sweetalert -->

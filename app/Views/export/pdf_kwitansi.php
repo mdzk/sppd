@@ -125,7 +125,7 @@
                 dibayar</span></p>
 
         <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>Pada
-                Tanggal: </span></p>
+                Tanggal: <?= tanggal($kwitansi['tanggal_verifikasi']); ?></span></p>
 
         <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;</span></p>
 

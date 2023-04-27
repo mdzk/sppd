@@ -49,19 +49,21 @@
                                 <td><?= $data['no_kwitansi']; ?></td>
                                 <td><?= $data['nama']; ?></td>
                                 <td><?= tanggal($data['tanggal_pelaksanaan']); ?></td>
-                                <td><?= $data['status']; ?></td>
                                 <td>
-                                    <a href="<?= base_url('diajukan/detail/' . $data['id_kwitansi']); ?>" class="btn btn-light-primary btn-icon action-icon">
-                                        <span class="fonticon-wrap">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </span>
-                                    </a>
-                                    <a href="<?= base_url('diajukan/detail/' . $data['id_kwitansi']); ?>" class="btn btn-light-primary btn-icon action-icon">
-                                        <span class="fonticon-wrap">
-                                            <i class="bi bi-eye-fill"></i>
-                                        </span>
-                                    </a>
+                                    <?php if ($data['status_kwitansi'] == 'diajukan') : ?>
+                                        <span class="badge bg-primary">Diajukan</span>
+                                    <?php endif; ?>
+                                    <?php if ($data['status_kwitansi'] == 'diterima') : ?>
+                                        <span class="badge bg-success">Diterima</span>
+                                    <?php endif; ?>
 
+                                </td>
+                                <td>
+                                    <a href="<?= base_url('diajukan/detail/' . $data['id_surat_tugas']); ?>" class="btn btn-light-primary btn-icon action-icon">
+                                        <span class="fonticon-wrap">
+                                            <i class="bi bi-eye-fill"></i>
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -10,7 +10,7 @@ class Users extends BaseController
     public function index()
     {
 
-        $user       = new Surat();
+        $user       = new UsersModel();
         $data = [
             'user'  => $user->find(session()->get('id_users')),
             'users'  => $user->findAll(),

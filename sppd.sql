@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2023 at 11:46 PM
+-- Generation Time: Apr 27, 2023 at 08:03 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -31,18 +31,10 @@ CREATE TABLE `kwitansi` (
   `id_kwitansi` int(11) NOT NULL,
   `no_kwitansi` varchar(255) NOT NULL,
   `nominal` int(11) NOT NULL,
-  `status` enum('diajukan','diterima') NOT NULL,
+  `status_kwitansi` enum('diajukan','diterima') NOT NULL,
+  `tanggal_verifikasi` datetime DEFAULT NULL,
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `kwitansi`
---
-
-INSERT INTO `kwitansi` (`id_kwitansi`, `no_kwitansi`, `nominal`, `status`, `id_surat_tugas`) VALUES
-(1, 'ojkasjo12jo21 Edit', 951000, 'diterima', 11),
-(2, 'bbsamndb', 100000, 'diterima', 10),
-(3, '9879798', 79879, 'diajukan', 8);
 
 -- --------------------------------------------------------
 
@@ -67,7 +59,8 @@ INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_su
 (3, 'Muhammad Dzaky', '324932498923', 'VII a', 'Teknisi', 8),
 (7, 'Muhammad Dzaky', '324324 34 33434 ', 'Pembina / IV. a', 'Kepala Bidang Perencanaan dan Pendanaan Daerah pada Bappelitbang Kabupaten Tanggamus', 10),
 (8, 'Budi Hartono', NULL, NULL, 'Pelaksana pada Bappelitbang Kabupaten Tanggamus', 10),
-(9, 'Muhammad Dzaky', NULL, NULL, 'Engineer', 11);
+(9, 'Muhammad Dzaky', NULL, NULL, 'Engineer', 11),
+(10, 'Lucas', 'NIP 1', 'Pangkat 1', 'Jabatan 1', 13);
 
 -- --------------------------------------------------------
 
@@ -90,15 +83,6 @@ CREATE TABLE `surat_tugas` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `surat_tugas`
---
-
-INSERT INTO `surat_tugas` (`id_surat_tugas`, `nama`, `nomor`, `dasar`, `status`, `tanggal_pelaksanaan`, `waktu`, `tempat`, `tanggal_ttd`, `bukti`, `created_at`, `updated_at`) VALUES
-(8, 'Kunjungan Pariwisata Edit', '113. 2323. /n 12 #3', NULL, 'diterima', '2023-12-31', '', 'SMA Negeri 9 Bandar Lampung', NULL, NULL, '2023-04-10 22:59:31', '2023-04-25 22:34:17'),
-(10, 'Fasilitasi dan Disiminasi Capaian Implementasi Program dan Kebijakan Merdeka Belajar Tahun 2022 untuk Bappeda Provinsi dan Kabupaten/Kota', '090/12123/21/12', NULL, 'selesai', '2023-12-31', 'Pukul 08.00 WIB s.d Selesai', 'Hotel Novotel Lampung', '2023-04-26 08:38:36', '1682536498_f15ed0271bd44666d69c.jpeg', '2023-04-26 04:01:01', '2023-04-27 02:14:58'),
-(11, 'Fasilitasi dan Disiminasi Capaian Implementasi Program dan Kebijakan Merdeka Belajar Tahun 2022 untuk Bappeda Provinsi dan Kabupaten/Kota', '123/2133/232/12', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin bibendum eget metus non fermentum. Vivamus ultricies eleifend bibendum. Pellentesque a dignissim lorem. Aenean pharetra ipsum sit amet arcu cursus, et maximus lorem pulvinar. Ut at nunc arcu. Vestibulum nulla sem, vulputate sit amet hendrerit et, aliquam ac mi. Morbi sed risus fringilla ligula sodales volutpat eget non risus. Cras erat massa, tristique quis suscipit eu, egestas in nisi. Quisque ac leo sit amet augue ullamcorper gravida eu quis arcu. Duis lobortis tortor vitae sapien dapibus egestas. Cras vestibulum semper quam et pharetra. Pellentesque tempor libero nec metus vestibulum lacinia. Morbi eu mauris quis sem euismod luctus id gravida enim. Sed elementum massa quis lectus faucibus dignissim. Sed eu egestas dui.', 'selesai', '2023-12-31', '23:59 s.d Selesai', 'SMA Negeri 9 Bandar Lampung', '2023-04-26 09:01:20', '1682534086_8f577654d9569c3c8900.jpeg', '2023-04-26 08:55:04', '2023-04-27 01:34:46');
-
 -- --------------------------------------------------------
 
 --
@@ -119,7 +103,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `role`) VALUES
 (2, 'Muhammad Dzaky', 'admin', '$2y$10$4UDQyhiz801cUw50KR008uHU2Cgu05OyTF8w7AzggtzGF4kKXrwy2', 'admin'),
-(3, 'Siti', 'user', '$2y$10$HHV8ZWFFdpbrHt9SlB4JNuGUwYW0bHNTcg389aAWsSKGlmY2A/Tde', 'user');
+(3, 'Staff Skretariat', 'user', '$2y$10$YcxItNHg/b.xcZ6G/38sWeIqEc.LnlWnBJGiF68oL66Mw/KyJvLK2', 'user'),
+(4, 'Kasubag Umum', 'pimpinan', '$2y$10$PqQXLr7cjChaEK6L.YAykuA/0m561ZCGcSr1cnXGqMEXfLEUlYaAu', 'pimpinan');
 
 --
 -- Indexes for dumped tables
@@ -157,25 +142,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

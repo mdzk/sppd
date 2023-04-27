@@ -34,6 +34,7 @@ $routes->setAutoRoute(false);
 // }, ['as' => 'home', 'filter' => 'auth:admin']);
 
 $routes->get('/', 'Home::index', ['as' => 'home', 'filter' => 'auth']);
+$routes->get('/api/terlaksana', 'Home::terlaksana', ['as' => 'api-terlaksana', 'filter' => 'auth']);
 $routes->post('/pdf/spt', 'PdfController::spt', ['as' => 'pdf-spt', 'filter' => 'auth']);
 $routes->post('/pdf/kwitansi', 'PdfController::kwitansi', ['as' => 'pdf-kwitansi', 'filter' => 'auth']);
 
@@ -60,7 +61,7 @@ $routes->get('/diajukan/detail/(:num)', 'Surat::show/$1', ['as' => 'diajukan-sho
 $routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
 $routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth']);
 $routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth']);
-$routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth']);
+$routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth:admin']);
 
 $routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
 $routes->post('/diterima/finish', 'Surat::finish', ['as' => 'diterima-finish', 'filter' => 'auth']);
@@ -76,6 +77,7 @@ $routes->post('/pegawai/delete', 'Pegawai::delete', ['as' => 'pegawai-delete', '
 $routes->get('/kwitansi', 'Kwitansi::index', ['as' => 'kwitansi', 'filter' => 'auth']);
 $routes->post('/kwitansi/save', 'Kwitansi::save', ['as' => 'kwitansi-save', 'filter' => 'auth']);
 $routes->post('/kwitansi/update', 'Kwitansi::update', ['as' => 'kwitansi-update', 'filter' => 'auth']);
+$routes->post('/kwitansi/accept', 'Kwitansi::accept', ['as' => 'kwitansi-accept', 'filter' => 'auth:admin']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

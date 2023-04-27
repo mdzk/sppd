@@ -47,12 +47,13 @@
                                 </div>
                                 <div class="col-auto">
                                     <?php
-                                    if ($surat['status'] == 'diajukan') :
+                                    if ($surat['status'] == 'diajukan' && $_SESSION['role'] == 'admin') :
                                     ?>
+
                                         <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
                                             <span class="fonticon-wrap">
                                                 <i class="bi bi-check me-1"></i>
-                                            </span> Terima SPT
+                                            </span> Verifikasi SPT
                                         </button>
 
                                         <!-- Start Modal -->
@@ -70,7 +71,7 @@
 
                                                         <div class="modal-body">
                                                             <p>
-                                                                Apakah anda yakin ingin menerima SPT ini?
+                                                                Apakah anda yakin ingin verifikasi SPT ini?
                                                             </p>
                                                         </div>
                                                         <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
@@ -107,13 +108,15 @@
                                             </button>
                                         </form>
                                         <?php if (empty($kwitansi[0])) : ?>
-                                            <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#kwitansi">
-                                                <span class="fonticon-wrap">
-                                                    <i class="bi bi-receipt me-1"></i>
-                                                </span> Ajukan Kwitansi
-                                            </button>
+                                            <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                                <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#kwitansi">
+                                                    <span class="fonticon-wrap">
+                                                        <i class="bi bi-receipt me-1"></i>
+                                                    </span> Ajukan Kwitansi
+                                                </button>
 
 
+                                            <?php endif; ?>
                                         <?php endif; ?>
 
                                         <?php if (!empty($kwitansi[0])) : ?>
@@ -157,12 +160,24 @@
 
                                                             <div class="form-group">
                                                                 <label for="jabatan">Status Kwintasi</label>
-                                                                <p class="badge bg-<?= $kwitansi[0]['status'] == 'diajukan' ? 'danger' : 'success'; ?>"> <?= $kwitansi[0]['status']; ?></p>
+                                                                <p class="badge bg-<?= $kwitansi[0]['status_kwitansi'] == 'diajukan' ? 'danger' : 'success'; ?>"> <?= $kwitansi[0]['status_kwitansi']; ?></p>
                                                             </div>
 
                                                             <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
                                                         </div>
-                                                        <?php if ($kwitansi[0]['status'] == 'diterima') : ?>
+                                                        <?php if ($kwitansi[0]['status_kwitansi'] == 'diajukan' && $_SESSION['role'] == 'admin') : ?>
+                                                            <div class="modal-footer">
+                                                                <form action="<?= route_to('kwitansi-accept'); ?>" method="post">
+                                                                    <input name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi'] ?>" hidden>
+                                                                    <button name="submit" type="submit" class="btn btn-success btn-icon action-icon fw-bold h-auto">
+                                                                        <span class="fonticon-wrap">
+                                                                            <i class="bi bi-check-square-fill me-1"></i>
+                                                                        </span> Verifikasi Kwitansi
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                        <?php if ($kwitansi[0]['status_kwitansi'] == 'diterima') : ?>
                                                             <div class="modal-footer">
                                                                 <form action="<?= route_to('pdf-kwitansi'); ?>" method="post">
                                                                     <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
@@ -179,21 +194,70 @@
                                             </div>
                                             <!-- Lihat Kwitansi Modal End -->
 
-                                            <?php if ($kwitansi[0]['status'] == "diajukan") : ?>
-                                                <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#editkwitansi">
-                                                    <span class="fonticon-wrap">
-                                                        <i class="bi bi-pencil-fill me-1"></i>
-                                                    </span> Edit Kwitansi
-                                                </button>
+                                            <?php if ($kwitansi[0]['status_kwitansi'] == "diajukan") : ?>
+                                                <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                                    <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#editkwitansi">
+                                                        <span class="fonticon-wrap">
+                                                            <i class="bi bi-pencil-fill me-1"></i>
+                                                        </span> Edit Kwitansi
+                                                    </button>
 
-                                                <!-- Edit Kwitansi Modal -->
-                                                <div class="modal fade text-left modal-borderless" id="editkwitansi">
-                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                    <!-- Edit Kwitansi Modal -->
+                                                    <div class="modal fade text-left modal-borderless" id="editkwitansi">
+                                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
 
-                                                        <form action="<?= route_to('kwitansi-update'); ?>" method="POST">
+                                                            <form action="<?= route_to('kwitansi-update'); ?>" method="POST">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">Detail Kwitansi</h5>
+                                                                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <i data-feather="x"></i>
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="name">No Kwitansi</label>
+                                                                            <input required value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label for="jabatan">Nominal</label>
+                                                                            <input required value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                                        </div>
+
+                                                                        <input name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi']; ?>" hidden>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                            <span class="d-sm-block">Submit</span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Edit Kwitansi Modal End -->
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+
+                                            <?php if ($surat['bukti'] == NULL && $kwitansi[0]['status_kwitansi'] == 'diterima') : ?>
+                                                <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                                    <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
+                                                        <span class="fonticon-wrap">
+                                                            <i class="bi bi-upload me-1"></i>
+                                                        </span> Upload Bukti
+                                                    </button>
+
+                                                    <!-- Bukti Modal -->
+                                                    <div class="modal fade text-left modal-borderless" id="bukti">
+                                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                                                            <?= form_open_multipart('diterima/finish'); ?>
+
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title">Detail Kwitansi</h5>
+                                                                    <h5 class="modal-title">Bukti SPT</h5>
                                                                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                                                                         <i data-feather="x"></i>
                                                                     </button>
@@ -201,16 +265,10 @@
 
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
-                                                                        <label for="name">No Kwitansi</label>
-                                                                        <input required value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                                        <label for="file">Pilih Gambar</label>
+                                                                        <input required type="file" name="bukti" class="form-control" id="file" accept="image/png, image/jpeg">
                                                                     </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="jabatan">Nominal</label>
-                                                                        <input required value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
-                                                                    </div>
-
-                                                                    <input name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi']; ?>" hidden>
+                                                                    <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
@@ -218,51 +276,12 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <!-- Edit Kwitansi Modal End -->
-                                            <?php endif; ?>
+                                                            <?php echo form_close() ?>
 
-                                            <?php if ($surat['bukti'] == NULL && $kwitansi[0]['status'] == 'diterima') : ?>
-                                                <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
-                                                    <span class="fonticon-wrap">
-                                                        <i class="bi bi-upload me-1"></i>
-                                                    </span> Upload Bukti
-                                                </button>
-
-                                                <!-- Bukti Modal -->
-                                                <div class="modal fade text-left modal-borderless" id="bukti">
-                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-
-                                                        <?= form_open_multipart('diterima/finish'); ?>
-
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Bukti SPT</h5>
-                                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <i data-feather="x"></i>
-                                                                </button>
-                                                            </div>
-
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="file">Pilih Gambar</label>
-                                                                    <input required type="file" name="bukti" class="form-control" id="file" accept="image/png, image/jpeg">
-                                                                </div>
-                                                                <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-                                                                    <span class="d-sm-block">Submit</span>
-                                                                </button>
-                                                            </div>
                                                         </div>
-                                                        <?php echo form_close() ?>
-
                                                     </div>
-                                                </div>
-                                                <!-- Bukti Modal End -->
+                                                    <!-- Bukti Modal End -->
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endif; ?>
 
@@ -296,43 +315,44 @@
                                             <!-- Bukti Modal End -->
                                         <?php endif; ?>
 
-                                        <!-- Ajukan Kwitansi Modal -->
-                                        <div class="modal fade text-left modal-borderless" id="kwitansi">
-                                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                            <!-- Ajukan Kwitansi Modal -->
+                                            <div class="modal fade text-left modal-borderless" id="kwitansi">
+                                                <div class="modal-dialog modal-dialog-scrollable" role="document">
 
-                                                <form action="<?= route_to('kwitansi-save'); ?>" method="POST">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Buat Kwitansi</h5>
-                                                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                                <i data-feather="x"></i>
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="name">No Kwitansi</label>
-                                                                <input required type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                    <form action="<?= route_to('kwitansi-save'); ?>" method="POST">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Buat Kwitansi</h5>
+                                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
                                                             </div>
 
-                                                            <div class="form-group">
-                                                                <label for="jabatan">Nominal</label>
-                                                                <input required type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
-                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="name">No Kwitansi</label>
+                                                                    <input required type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
+                                                                </div>
 
-                                                            <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                                <div class="form-group">
+                                                                    <label for="jabatan">Nominal</label>
+                                                                    <input required type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                                </div>
+
+                                                                <input name="id_surat_tugas" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                                    <span class="d-sm-block">Submit</span>
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-                                                                <span class="d-sm-block">Submit</span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- Ajukan Kwitansi Modal End -->
-
+                                            <!-- Ajukan Kwitansi Modal End -->
+                                        <?php endif; ?>
 
                                     <?php endif; ?>
                                 </div>
@@ -558,59 +578,61 @@
                     <?php
                     if ($surat['status'] == 'diajukan') :
                     ?>
-                        <div class="px-4">
-                            <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3" data-bs-toggle="modal" data-bs-target="#tambahpegawai">
-                                Tambah Pegawai
-                            </button>
-                            <div class="modal fade text-left modal-borderless" id="tambahpegawai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                    <form action="<?= route_to('pegawai-save'); ?>" method="POST">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Tambah Pegawai</h5>
-                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
+                        <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                            <div class="px-4">
+                                <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3" data-bs-toggle="modal" data-bs-target="#tambahpegawai">
+                                    Tambah Pegawai
+                                </button>
+                                <div class="modal fade text-left modal-borderless" id="tambahpegawai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <form action="<?= route_to('pegawai-save'); ?>" method="POST">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Tambah Pegawai</h5>
+                                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                        <i data-feather="x"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="name">Nama</label>
+                                                        <input required type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="jabatan">Jabatan</label>
+                                                        <input required type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="nip">NIP</label>
+                                                        <input type="text" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
+                                                        <p>
+                                                            <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="pangkat">Pangkat/Gol</label>
+                                                        <input type="text" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
+                                                        <p>
+                                                            <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
+                                                        </p>
+                                                    </div>
+                                                    <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                                                        <span class="d-sm-block">Submit</span>
+                                                    </button>
+                                                </div>
                                             </div>
-
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label for="name">Nama</label>
-                                                    <input required type="text" name="nama" class="form-control" placeholder="Masukkan Nama" id="name">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="jabatan">Jabatan</label>
-                                                    <input required type="text" name="jabatan" class="form-control" placeholder="Masukkan Jabatan" id="jabatan">
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="nip">NIP</label>
-                                                    <input type="text" name="nip" class="form-control" placeholder="Masukkan NIP" id="nip">
-                                                    <p>
-                                                        <small class="text-muted">*Kosongkan jika tidak memiliki NIP</small>
-                                                    </p>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="pangkat">Pangkat/Gol</label>
-                                                    <input type="text" name="pangkat" class="form-control" placeholder="Masukkan Pangkat" id="pangkat">
-                                                    <p>
-                                                        <small class="text-muted">*Kosongkan jika tidak memiliki Pangkat</small>
-                                                    </p>
-                                                </div>
-                                                <input name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-                                                    <span class="d-sm-block">Submit</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                     </div>
                 </div>
