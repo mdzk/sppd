@@ -17,7 +17,7 @@ class Home extends BaseController
             'user'  => $user->find(session()->get('id_users')),
             'terlaksana' => $surat->where('status', 'selesai')->countAllResults(),
             'diajukan' => $surat->where('status', 'diajukan')->countAllResults(),
-            'kwitansi' => $surat->where('status', 'diajukan')->countAllResults(),
+            'kwitansi' => $kwitansi->where('status_kwitansi', 'diajukan')->countAllResults(),
             'users'  => $user->findAll(),
             'surat'  => $surat->where('status', 'diajukan')->limit(5)->orderBy('created_at', 'DESC')->findAll(),
         ];
