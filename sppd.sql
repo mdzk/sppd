@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2023 at 08:03 AM
+-- Generation Time: Apr 28, 2023 at 02:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -50,17 +50,6 @@ CREATE TABLE `pegawai` (
   `jabatan` varchar(255) NOT NULL,
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pegawai`
---
-
-INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
-(3, 'Muhammad Dzaky', '324932498923', 'VII a', 'Teknisi', 8),
-(7, 'Muhammad Dzaky', '324324 34 33434 ', 'Pembina / IV. a', 'Kepala Bidang Perencanaan dan Pendanaan Daerah pada Bappelitbang Kabupaten Tanggamus', 10),
-(8, 'Budi Hartono', NULL, NULL, 'Pelaksana pada Bappelitbang Kabupaten Tanggamus', 10),
-(9, 'Muhammad Dzaky', NULL, NULL, 'Engineer', 11),
-(10, 'Lucas', 'NIP 1', 'Pangkat 1', 'Jabatan 1', 13);
 
 -- --------------------------------------------------------
 
@@ -142,7 +131,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
@@ -154,7 +143,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`

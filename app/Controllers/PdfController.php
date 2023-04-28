@@ -16,7 +16,7 @@ class PdfController extends BaseController
 
     public function spt()
     {
-        $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
+        $filename = date('y-m-d-H-i-s') . '-spt';
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
@@ -41,11 +41,12 @@ class PdfController extends BaseController
 
         // output the generated pdf
         $dompdf->stream($filename);
+        exit();
     }
 
     public function kwitansi()
     {
-        $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
+        $filename = date('y-m-d-H-i-s') . '-kwitansi';
         $dompdf = new Dompdf();
         $surat = new SuratModel();
         $kwitansi = new KwitansiModel();
@@ -59,5 +60,6 @@ class PdfController extends BaseController
         $dompdf->setPaper(array(0, 0, 609.4488, 935.433), 'landscape');
         $dompdf->render();
         $dompdf->stream($filename);
+        exit();
     }
 }

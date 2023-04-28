@@ -223,19 +223,29 @@ class Surat extends BaseController
 
     public function accept()
     {
-        $user = new SuratModel();
-        $data = $user->find($this->request->getVar('id_surat'));
+
+        $kwitansi = new KwitansiModel();
+        $data_kwitansi = [
+            'status_kwitansi' => "diterima",
+            'tanggal_verifikasi' => date('Y-m-d H:i:s'),
+        ];
+        $kwitansi->set($data_kwitansi);
+        $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));
+        $kwitansi->update();
+
+        $surat = new SuratModel();
+        $data = $surat->find($this->request->getVar('id_surat'));
 
         $data = [
             'status' => "diterima",
             'tanggal_ttd' => date('Y-m-d H:i:s'),
         ];
-        $user->set($data);
-        $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
-        $user->update();
+        $surat->set($data);
+        $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $surat->update();
 
-        session()->setFlashdata('pesan', 'SPT berhasil diterima');
-        return redirect()->to('diajukan');
+        session()->setFlashdata('pesan', 'SPT berhasil diverifikasi');
+        return redirect()->back();
     }
 
     public function finish()
