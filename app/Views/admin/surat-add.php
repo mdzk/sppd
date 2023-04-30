@@ -39,13 +39,13 @@
     <section id="basic-horizontal-layouts">
         <div class="row match-height">
             <div class="col-md-12 col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Form SPT</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form action="<?= base_url('diajukan/save'); ?>" method="POST" class="form form-horizontal">
+                <form action="<?= base_url('diajukan/save'); ?>" method="POST" class="form form-horizontal">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Form SPT</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -95,20 +95,49 @@
                                             <input required type="text" id="tempat-pelaksanaan" class="form-control" name="tempat" placeholder="Masukkan Tempat Pelaksanaan" />
                                         </div>
 
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">
-                                                Ajukan
-                                            </button>
-                                            <a href="<?= base_url('diajukan'); ?>" class="btn btn-light-secondary me-1 mb-1">
-                                                Kembali
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Form Kwitansi</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal-no-kwitansi">No Kwitansi</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="first-name-horizontal-no-kwitansi" class="form-control" name="no_kwitansi" placeholder="Masukkan No Kwitansi" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Nominal</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="number" id="nominal-horizontal" class="form-control" name="nominal" placeholder="Masukkan Nominal" />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <a href="<?= base_url('diajukan'); ?>" class="btn btn-light-secondary me-1 mb-1">
+                            Kembali
+                        </a>
+                        <button type="submit" class="btn btn-primary me-1 mb-1">
+                            Ajukan
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

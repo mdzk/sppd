@@ -210,7 +210,7 @@
 
                                         <?php
                                         if (!empty($kwitansi[0])) :
-                                            if ($kwitansi[0]['status_kwitansi'] == "diajukan" && $surat['status'] == 'diajukan' && $_SESSION['role'] == 'admin') :
+                                            if ($kwitansi[0]['status_kwitansi'] == "diajukan" && $surat['status'] == 'diajukan' && $_SESSION['role'] == 'admin' && $jumlah_pegawai > 0) :
                                         ?>
 
                                                 <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">

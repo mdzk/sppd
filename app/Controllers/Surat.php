@@ -99,8 +99,24 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'no_kwitansi' => [
+                'label' => 'no_kwitansi',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'nominal' => [
+                'label' => 'nominal',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
         ])) {
+
             $surat = new SuratModel();
+            $kwitansi = new KwitansiModel();
             $surat->save([
                 'nama' => $this->request->getVar('nama'),
                 'nomor' => $this->request->getVar('nomor'),
@@ -109,6 +125,13 @@ class Surat extends BaseController
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
                 'status' => "diajukan",
+            ]);
+
+            $kwitansi->save([
+                'nominal' => $this->request->getVar('nominal'),
+                'no_kwitansi' => $this->request->getVar('no_kwitansi'),
+                'id_surat_tugas' => $surat->getInsertID(),
+                'status_kwitansi' => "diajukan",
             ]);
 
             session()->setFlashdata('pesan', 'SPT berhasil diajukan');
@@ -209,13 +232,14 @@ class Surat extends BaseController
     {
         $surat = new SuratModel();
         $kwitansi = new KwitansiModel();
+        $pegawai = new PegawaiModel();
+
         $data = $surat->find($id);
         $id = $data['id_surat_tugas'];
-
-        $pegawai = new PegawaiModel();
         $data = [
             'surat'  => $surat->find($id),
             'pegawai'  => $pegawai->where('id_surat_tugas', $id)->findAll(),
+            'jumlah_pegawai'  => $pegawai->where('id_surat_tugas', $id)->countAllResults(),
             'kwitansi'  => $kwitansi->where('id_surat_tugas', $id)->findAll(),
         ];
         return view('admin/surat-show', $data);
