@@ -34,7 +34,6 @@
                 <table class="table" id="table1">
                     <thead>
                         <tr>
-                            <th>No Kwitansi</th>
                             <th>Nama Kegiatan</th>
                             <th>Tanggal Pelaksanaan</th>
                             <th>Status</th>
@@ -46,7 +45,6 @@
                         foreach ($kwitansi as $data) :
                         ?>
                             <tr>
-                                <td><?= $data['no_kwitansi']; ?></td>
                                 <td><?= $data['nama']; ?></td>
                                 <td><?= tanggal($data['tanggal_pelaksanaan']); ?></td>
                                 <td>
