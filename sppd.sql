@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2023 at 02:53 PM
+-- Generation Time: May 05, 2023 at 09:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -29,12 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `kwitansi` (
   `id_kwitansi` int(11) NOT NULL,
-  `no_kwitansi` varchar(255) NOT NULL,
   `nominal` int(11) NOT NULL,
   `status_kwitansi` enum('diajukan','diterima') NOT NULL,
-  `tanggal_verifikasi` datetime DEFAULT NULL,
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kwitansi`
+--
+
+INSERT INTO `kwitansi` (`id_kwitansi`, `nominal`, `status_kwitansi`, `id_surat_tugas`) VALUES
+(9, 1500000, 'diajukan', 18),
+(10, 1950000, 'diajukan', 19),
+(11, 1950000, 'diterima', 20);
 
 -- --------------------------------------------------------
 
@@ -50,6 +57,13 @@ CREATE TABLE `pegawai` (
   `jabatan` varchar(255) NOT NULL,
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
+(13, 'Muhammad Dzaky', NULL, NULL, 'Direktur', 20);
 
 -- --------------------------------------------------------
 
@@ -68,9 +82,20 @@ CREATE TABLE `surat_tugas` (
   `tempat` varchar(255) NOT NULL,
   `tanggal_ttd` datetime DEFAULT NULL,
   `bukti` varchar(255) DEFAULT NULL,
+  `ttd_jabatan` varchar(255) NOT NULL,
+  `ttd_nama` varchar(255) NOT NULL,
+  `ttd_golongan` varchar(255) NOT NULL,
+  `ttd_nip` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `surat_tugas`
+--
+
+INSERT INTO `surat_tugas` (`id_surat_tugas`, `nama`, `nomor`, `dasar`, `status`, `tanggal_pelaksanaan`, `waktu`, `tempat`, `tanggal_ttd`, `bukti`, `ttd_jabatan`, `ttd_nama`, `ttd_golongan`, `ttd_nip`, `created_at`, `updated_at`) VALUES
+(20, 'Musyawarah Perencanaan Pembangunan (Musrenbang) Provinsi Lampung Tahun 2023 dalam Rangka Penyusunan RKPD Provinsi Lampung Tahun 2024', '090/23/123/2023', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus efficitur fermentum tempor. Suspendisse facilisis leo sed dapibus tincidunt. Aenean interdum felis quis quam eleifend, eu maximus ligula interdum. Vestibulum mi lectus, vulputate dignissim erat ac, fermentum sagittis ligula. Sed dictum at metus at tristique.', 'diterima', '2023-02-01', '00:02 s.d Selesai', 'Hotel Novotel', '2023-05-06 01:39:37', NULL, 'BUPATI TANGGAMUS SEKRETARIS DAERAH KABUPATEN', 'Mukhlis Santoso', 'Pembina Utama Madya', '1232 2323 23', '2023-05-06 01:32:46', '2023-05-06 01:39:37');
 
 -- --------------------------------------------------------
 
@@ -131,19 +156,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`

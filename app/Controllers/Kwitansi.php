@@ -19,13 +19,6 @@ class Kwitansi extends BaseController
     public function save()
     {
         if ($this->validate([
-            'no_kwitansi' => [
-                'label' => 'Nomor Kwitansi',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} Wajib diisi !',
-                ]
-            ],
             'nominal' => [
                 'label' => 'Nominal',
                 'rules' => "required",
@@ -45,7 +38,6 @@ class Kwitansi extends BaseController
             $kwitansi = new KwitansiModel();
             $kwitansi->save([
                 'nominal' => $this->request->getVar('nominal'),
-                'no_kwitansi' => $this->request->getVar('no_kwitansi'),
                 'id_surat_tugas' => $this->request->getVar('id_surat_tugas'),
                 'status_kwitansi' => "diajukan",
             ]);
@@ -65,13 +57,7 @@ class Kwitansi extends BaseController
         $data = $kwitansi->find($this->request->getVar('id_kwitansi'));
         $id = $data['id_kwitansi'];
         if ($this->validate([
-            'no_kwitansi' => [
-                'label' => 'Nomor Kwitansi',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} Wajib diisi !',
-                ]
-            ],
+
             'nominal' => [
                 'label' => 'Nominal',
                 'rules' => "required",
@@ -83,7 +69,6 @@ class Kwitansi extends BaseController
 
             $data = [
                 'nominal' => $this->request->getVar('nominal'),
-                'no_kwitansi' => $this->request->getVar('no_kwitansi'),
                 'status_kwitansi' => "diajukan",
             ];
             $kwitansi->set($data);
@@ -104,7 +89,6 @@ class Kwitansi extends BaseController
         $kwitansi = new KwitansiModel();
         $data = [
             'status_kwitansi' => "diterima",
-            'tanggal_verifikasi' => date('Y-m-d H:i:s'),
         ];
         $kwitansi->set($data);
         $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));

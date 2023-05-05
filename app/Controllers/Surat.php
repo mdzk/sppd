@@ -99,15 +99,36 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'no_kwitansi' => [
-                'label' => 'no_kwitansi',
+            'nominal' => [
+                'label' => 'nominal',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'nominal' => [
-                'label' => 'nominal',
+            'ttd_jabatan' => [
+                'label' => 'Jabatan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_nama' => [
+                'label' => 'Nama yang bertanda tangan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_golongan' => [
+                'label' => 'Golongan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_nip' => [
+                'label' => 'nip',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
@@ -124,12 +145,15 @@ class Surat extends BaseController
                 'dasar' => $this->request->getVar('dasar'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
+                'ttd_jabatan' => strtoupper($this->request->getVar('ttd_jabatan')),
+                'ttd_nama' => $this->request->getVar('ttd_nama'),
+                'ttd_nip' => $this->request->getVar('ttd_nip'),
+                'ttd_golongan' => $this->request->getVar('ttd_golongan'),
                 'status' => "diajukan",
             ]);
 
             $kwitansi->save([
                 'nominal' => $this->request->getVar('nominal'),
-                'no_kwitansi' => $this->request->getVar('no_kwitansi'),
                 'id_surat_tugas' => $surat->getInsertID(),
                 'status_kwitansi' => "diajukan",
             ]);
@@ -192,6 +216,34 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'ttd_jabatan' => [
+                'label' => 'Jabatan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_nama' => [
+                'label' => 'Nama yang bertanda tangan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_golongan' => [
+                'label' => 'Golongan',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+            'ttd_nip' => [
+                'label' => 'nip',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
         ])) {
 
             $data = [
@@ -201,6 +253,10 @@ class Surat extends BaseController
                 'dasar' => $this->request->getVar('dasar'),
                 'tanggal_pelaksanaan' => $this->request->getVar('tanggal_pelaksanaan'),
                 'tempat' => $this->request->getVar('tempat'),
+                'ttd_jabatan' => strtoupper($this->request->getVar('ttd_jabatan')),
+                'ttd_nama' => $this->request->getVar('ttd_nama'),
+                'ttd_nip' => $this->request->getVar('ttd_nip'),
+                'ttd_golongan' => $this->request->getVar('ttd_golongan'),
                 'status' => "diajukan",
             ];
             $user->set($data);
@@ -251,7 +307,6 @@ class Surat extends BaseController
         $kwitansi = new KwitansiModel();
         $data_kwitansi = [
             'status_kwitansi' => "diterima",
-            'tanggal_verifikasi' => date('Y-m-d H:i:s'),
         ];
         $kwitansi->set($data_kwitansi);
         $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));

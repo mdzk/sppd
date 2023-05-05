@@ -103,6 +103,44 @@
 
                     <div class="card">
                         <div class="card-header">
+                            <h4 class="card-title">Form Yang Bertanda Tangan</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Jabatan</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="ttd_jabatan" placeholder="BUPATI TANGGAMUS SEKRETARIS DAERAH KABUPATEN" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Nama Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="ttd_nama" placeholder="Masukkan Nama Penjabat" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Golongan Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="ttd_golongan" placeholder="Pembina Utama Madya" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">NIP Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="ttd_nip" placeholder="Masukkan NIP Penjabat" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
                             <h4 class="card-title">Form Kwitansi</h4>
                         </div>
                         <div class="card-content">
@@ -110,19 +148,11 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <label for="first-name-horizontal-no-kwitansi">No Kwitansi</label>
-                                        </div>
-                                        <div class="col-md-9 form-group">
-                                            <input autofocus required type="text" id="first-name-horizontal-no-kwitansi" class="form-control" name="no_kwitansi" placeholder="Masukkan No Kwitansi" />
-                                        </div>
-                                        <div class="col-md-3">
                                             <label for="nominal-horizontal">Nominal</label>
                                         </div>
                                         <div class="col-md-9 form-group">
                                             <input autofocus required type="number" id="nominal-horizontal" class="form-control" name="nominal" placeholder="Masukkan Nominal" />
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>

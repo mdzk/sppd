@@ -124,7 +124,7 @@
                 </td>
                 <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
                     <p class=MsoNormal style='text-align: justify;margin-bottom:0in;line-height:normal'>
-                        <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Surat Balai Penjaminan Mutu Pendidikan Provinsi Lampung Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Nomor : 2148/C7.14/SK.02.01/2022 tanggal 22 Desember 2022 perihal <?= $surat['nama']; ?></span>
+                        <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'><?= $surat['dasar']; ?></span>
                     </p>
                 </td>
             </tr>
@@ -238,58 +238,93 @@ line-height:normal'>
                     </p>
                 </td>
                 <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
-                    <p class=MsoNormal style='text-align: justify;margin-bottom:0in;line-height:normal'>
-                        <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Menghadiri acara <?= $surat['nama']; ?>, yang dilaksanakan pada :</span>
-                    </p>
                     <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
                         <tr>
-                            <td width=100 valign=top>
+                            <td width=27 valign=top style='width:10.6pt;padding:0in 5.4pt 10pt 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Hari/Tanggal</span>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>1.</span>
                                 </p>
                             </td>
-                            <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
+                            <td valign=top style='padding:0in 5.4pt 10pt 5.4pt'>
+                                <p class=MsoNormal style='text-align: justify;margin-bottom:0in;line-height:normal'>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Menghadiri acara <?= $surat['nama']; ?>, yang dilaksanakan pada :</span>
+                                </p>
+                                <table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+                                    <tr>
+                                        <td width=100 valign=top>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Hari/Tanggal</span>
+                                            </p>
+                                        </td>
+                                        <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
+                                            </p>
+                                        </td>
+                                        <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'><?= tanggal($surat['tanggal_pelaksanaan']); ?></span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width=100 valign=top>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Tempat</span>
+                                            </p>
+                                        </td>
+                                        <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
+                                            </p>
+                                        </td>
+                                        <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'><?= $surat['tempat']; ?></span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width=100 valign=top>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Waktu</span>
+                                            </p>
+                                        </td>
+                                        <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
+                                            </p>
+                                        </td>
+                                        <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
+                                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                                <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Pukul <?= $surat['waktu']; ?></span>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width=27 valign=top style='width:10.6pt;padding:0in 5.4pt 10pt 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>2.</span>
                                 </p>
                             </td>
-                            <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
+                            <td valign=top style='padding:0in 5.4pt 10pt 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'><?= tanggal($surat['tanggal_pelaksanaan']); ?></span>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Segala biaya yang timbul dalam pelaksanaan tugas dibebankan kepada Dokumen Pelaksanaan Anggaran Satuan Kerja Perangkat Daerah Bapperida Kabupaten Tanggamus Tahun Anggaran <?= date('Y') ?>.</span>
                                 </p>
                             </td>
                         </tr>
                         <tr>
-                            <td width=100 valign=top>
+                            <td width=27 valign=top style='width:10.6pt;padding:0in 5.4pt 10pt 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Tempat</span>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>3.</span>
                                 </p>
                             </td>
-                            <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
+                            <td valign=top style='padding:0in 5.4pt 10pt 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
-                                </p>
-                            </td>
-                            <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
-                                <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'><?= $surat['tempat']; ?></span>
-                                </p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width=100 valign=top>
-                                <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Waktu</span>
-                                </p>
-                            </td>
-                            <td width=18 valign=top style='width:1pt;padding:0in 1pt 0in 1pt'>
-                                <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>:</span>
-                                </p>
-                            </td>
-                            <td valign=top style='padding:0in 5.4pt 0in 5.4pt'>
-                                <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
-                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Pukul <?= $surat['waktu']; ?></span>
+                                    <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Melaporkan hasilnya kepada Sekretaris Daerah Kabupaten Tanggamus.</span>
                                 </p>
                             </td>
                         </tr>
@@ -302,7 +337,7 @@ line-height:normal'>
             <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span>
         </p>
         <p class=MsoNormal style='margin-bottom:0in;text-indent:.5in;line-height:normal'>
-            <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Demikian Surat Perintah ini dikeluarkan untuk dilaksanakan dengan penuh tanggung jawab dan melaporkan hasilnya</span>
+            <span lang=IN style='font-size:12.0pt;font-family:"Times New Roman",serif'>Demikian Surat Perintah ini dikeluarkan untuk dilaksanakan dengan penuh tanggung jawab.</span>
         </p>
         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
 line-height:normal'>
@@ -326,8 +361,8 @@ line-height:normal'>
                 </table>
             </div>
             <div style="text-align: center; font-weight: bold;">
-                <p style="margin-bottom: 60pt;">a.n BUPATI TANGGAMUS <br /> SEKRETARIS DAERAH KABUPATEN,</p>
-                <p><span style="text-decoration: underline;">HAMID HERIANSYAH LUBIS</span><br /> Pembina Utama Madya <br /> NIP. 19750308 199403 1 003</p>
+                <p style="width: 220pt;margin-bottom: 60pt;">a.n <?= $surat['ttd_jabatan']; ?></p>
+                <p><span style="text-decoration: underline;"><?= $surat['ttd_nama']; ?></span><br /> <?= $surat['ttd_golongan']; ?> <br /> NIP. <?= $surat['ttd_nip']; ?></p>
             </div>
         </div>
     </div>

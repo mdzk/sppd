@@ -39,13 +39,13 @@
     <section id="basic-horizontal-layouts">
         <div class="row match-height">
             <div class="col-md-12 col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Form SPT</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form action="<?= base_url('diajukan/update'); ?>" method="POST" class="form form-horizontal">
+                <form action="<?= base_url('diajukan/update'); ?>" method="POST" class="form form-horizontal">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Form SPT</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
                                 <div class="form-body">
                                     <div class="row">
                                         <input value="<?= $surat['id_surat_tugas']; ?>" required name="id_surat" hidden />
@@ -86,20 +86,60 @@
                                             <input value="<?= $surat['tempat']; ?>" required type="text" id="tempat-pelaksanaan" class="form-control" name="tempat" placeholder="Masukkan Tempat Pelaksanaan" />
                                         </div>
 
-                                        <div class="col-sm-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">
-                                                Ajukan
-                                            </button>
-                                            <a href="<?= base_url('diajukan'); ?>" class="btn btn-light-secondary me-1 mb-1">
-                                                Kembali
-                                            </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Form Yang Bertanda Tangan</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Jabatan</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input value="<?= $surat['ttd_jabatan']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="ttd_jabatan" placeholder="BUPATI TANGGAMUS SEKRETARIS DAERAH KABUPATEN" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Nama Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input value="<?= $surat['ttd_nama']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="tdd_nama" placeholder="Masukkan Nama Penjabat" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Golongan Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input value="<?= $surat['ttd_golongan']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="ttd_golongan" placeholder="Pembina Utama Madya" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">NIP Penjabat</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input value="<?= $surat['ttd_nip']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="ttd_nip" placeholder="Masukkan NIP Penjabat" />
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="col-sm-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-1 mb-1">
+                            Ajukan
+                        </button>
+                        <a href="<?= base_url('diajukan'); ?>" class="btn btn-light-secondary me-1 mb-1">
+                            Kembali
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </section>

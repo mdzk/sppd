@@ -31,6 +31,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
+
+        <?php if ($jumlah_pegawai == 0) : ?>
+            <div class="alert alert-danger alert-dismissible show fade">
+                <p>Penting! Harap Tambahkan Pegawai yang akan Melaksanakan SPT agar Data Dapat Diverifikasi</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Responsive tables start -->
@@ -76,11 +83,6 @@
 
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label for="name">No Kwitansi</label>
-                                                                    <input required type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
-                                                                </div>
-
-                                                                <div class="form-group">
                                                                     <label for="jabatan">Nominal</label>
                                                                     <input required type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
                                                                 </div>
@@ -122,11 +124,6 @@
                                                     </div>
 
                                                     <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="name">No Kwitansi</label>
-                                                            <input required disabled value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
-                                                        </div>
-
                                                         <div class="form-group">
                                                             <label for="jabatan">Nominal</label>
                                                             <input required disabled value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
@@ -183,11 +180,6 @@
                                                                 </div>
 
                                                                 <div class="modal-body">
-                                                                    <div class="form-group">
-                                                                        <label for="name">No Kwitansi</label>
-                                                                        <input required value="<?= $kwitansi[0]['no_kwitansi']; ?>" type="text" name="no_kwitansi" class="form-control" placeholder="Masukkan Nomor" id="name">
-                                                                    </div>
-
                                                                     <div class="form-group">
                                                                         <label for="jabatan">Nominal</label>
                                                                         <input required value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
@@ -427,6 +419,37 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Yang Bertanda Tangan</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-between">
+                                <div class="col-12">
+                                    <h6>Jabatan</h6>
+                                    <p class="fs-5 fw-bold"><?= $surat['ttd_jabatan']; ?></p>
+                                </div>
+                                <div class="col-12">
+                                    <h6>Nama</h6>
+                                    <p class="fs-5 fw-bold"><?= $surat['ttd_nama']; ?></p>
+                                </div>
+                                <div class="col-12">
+                                    <h6>Golongan</h6>
+                                    <p class="fs-5 fw-bold"><?= $surat['ttd_golongan']; ?></p>
+                                </div>
+                                <div class="col-12">
+                                    <h6>NIP</h6>
+                                    <p class="fs-5 fw-bold"><?= $surat['ttd_nip']; ?></p>
                                 </div>
                             </div>
                         </div>
