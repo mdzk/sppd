@@ -75,7 +75,7 @@
                     <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>:</span></p>
                 </td>
                 <td valign=top style='padding:0in 5.4pt 0in 5.4pt;height:17.0pt'>
-                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><b><span lang=IN style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif'>BADAN PERENCANAAN PEMBANGUNAN PENELITIAN DAN PENGEMBANGAN KABUPATEN TANGGAMUS</span></b></p>
+                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><b><span lang=IN style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman",serif; text-transform: uppercase;'><?= $kwitansi['sumber']; ?></span></b></p>
                 </td>
             </tr>
             <tr style='height:17.0pt'>
@@ -191,10 +191,10 @@
   font-family:"Times New Roman",serif'>&nbsp;</span></p>
                     <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
   line-height:115%'><b><u><span lang=IN style='font-size:12.0pt;line-height:
-  115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></u></b></p>
+  115%;font-family:"Times New Roman",serif'><?= $surat['ttd_nama']; ?></span></u></b></p>
                     <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
   line-height:115%'><span lang=IN style='font-size:12.0pt;line-height:115%;
-  font-family:"Times New Roman",serif'>NIP. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+  font-family:"Times New Roman",serif'>NIP. <?= $surat['ttd_nip']; ?></span></p>
                 </td>
             </tr>
             <tr>
@@ -370,12 +370,12 @@
                 <td valign=top style='border-top:none;border-left:
   none;border-bottom:1pt solid #000;border-right:1pt solid #000;
   padding:0in 5.4pt 0in 5.4pt'>
-                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:11.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:11.0pt;line-height:115%;font-family:"Times New Roman",serif'><?= $kwitansi['kode_rekening']; ?></span></p>
                 </td>
                 <td width=130 valign=top style='border-top:none;border-left:
   none;border-bottom:1pt solid #000;border-right:1pt solid #000;
   padding:0in 5.4pt 0in 5.4pt'>
-                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:11.0pt;line-height:115%;font-family:"Times New Roman",serif'></span></p>
+                    <p class=MsoNormal style='margin-bottom:0in;line-height:115%'><span lang=IN style='font-size:11.0pt;line-height:115%;font-family:"Times New Roman",serif'><?= $kwitansi['uraian']; ?></span></p>
                 </td>
                 <td valign=top style='border-top:none;border-left:
   none;border-bottom:1pt solid #000;border-right:1pt solid #000;

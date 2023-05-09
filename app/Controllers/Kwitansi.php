@@ -65,10 +65,37 @@ class Kwitansi extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+
+            'sumber' => [
+                'label' => 'Diterima dari',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+
+            'uraian' => [
+                'label' => 'uraian',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
+
+            'kode_rekening' => [
+                'label' => 'Kode Rekening',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
         ])) {
 
             $data = [
                 'nominal' => $this->request->getVar('nominal'),
+                'uraian' => $this->request->getVar('uraian'),
+                'kode_rekening' => $this->request->getVar('kode_rekening'),
+                'sumber' => $this->request->getVar('sumber'),
                 'status_kwitansi' => "diajukan",
             ];
             $kwitansi->set($data);

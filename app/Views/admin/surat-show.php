@@ -52,6 +52,7 @@
                                     <h6>Nomor Surat</h6>
                                     <p class="fs-5 fw-bold"><?= $surat['nomor']; ?></p>
                                 </div>
+
                                 <div class="col-auto">
                                     <?php
                                     if ($surat['status'] !== 'diajukan') :
@@ -125,6 +126,11 @@
 
                                                     <div class="modal-body">
                                                         <div class="form-group">
+                                                            <label for="jabatan">Diterima dari</label>
+                                                            <input required disabled value="<?= $kwitansi[0]['sumber']; ?>" type="text" name="sumber" class="form-control" placeholder="Masukkan Data" id="jabatan">
+                                                        </div>
+
+                                                        <div class="form-group">
                                                             <label for="jabatan">Nominal</label>
                                                             <input required disabled value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
                                                         </div>
@@ -132,6 +138,16 @@
                                                         <div class="form-group">
                                                             <label for="jabatan">Terbilang</label>
                                                             <input required disabled value="<?= terbilang($kwitansi[0]['nominal']); ?>" type="text" class="form-control text-capitalize" placeholder="Masukkan Nominal" id="jabatan">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="jabatan">Kode Rekening</label>
+                                                            <input required disabled value="<?= $kwitansi[0]['kode_rekening']; ?>" type="text" class="form-control text-capitalize" placeholder="Masukkan Nominal" id="jabatan">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="jabatan">Uraian</label>
+                                                            <input required disabled value="<?= $kwitansi[0]['uraian']; ?>" type="text" class="form-control text-capitalize" placeholder="Masukkan Nominal" id="jabatan">
                                                         </div>
 
                                                         <div class="form-group">
@@ -181,8 +197,23 @@
 
                                                                 <div class="modal-body">
                                                                     <div class="form-group">
+                                                                        <label for="jabatan">Diterima dari</label>
+                                                                        <input required value="<?= $kwitansi[0]['sumber']; ?>" type="text" name="sumber" class="form-control" placeholder="Masukkan Data" id="jabatan">
+                                                                    </div>
+
+                                                                    <div class="form-group">
                                                                         <label for="jabatan">Nominal</label>
                                                                         <input required value="<?= $kwitansi[0]['nominal']; ?>" type="number" name="nominal" class="form-control" placeholder="Masukkan Nominal" id="jabatan">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="jabatan">Kode Rekening</label>
+                                                                        <input required value="<?= $kwitansi[0]['kode_rekening']; ?>" type="text" name="kode_rekening" class="form-control" placeholder="Masukkan Kode Rekening" id="jabatan">
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label for="jabatan">Uraian</label>
+                                                                        <input required value="<?= $kwitansi[0]['uraian']; ?>" type="text" name="uraian" class="form-control" placeholder="Masukkan Uraian" id="jabatan">
                                                                     </div>
 
                                                                     <input name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi']; ?>" hidden>
@@ -345,10 +376,21 @@
                                 </div>
                             </div>
 
+                            <h6>Tipe Surat</h6>
+                            <p class="fs-6 fw-bold">
+                                <?php if ($surat['tipe'] == "sekda") : ?>
+                                    Sekretaris Daerah
+                                <?php endif; ?>
+                                <?php if ($surat['tipe'] == "bupati") : ?>
+                                    Bupati
+                                <?php endif; ?>
+                            </p>
+
                             <h6>Nama Kegiatan</h6>
                             <div class="alert bg-light-primary">
                                 <p class="fs-6"><?= $surat['nama']; ?></p>
                             </div>
+
                             <h6>Dasar Surat</h6>
                             <p class="fs-6"><?= $surat['dasar']; ?></p>
                             <div class="row">

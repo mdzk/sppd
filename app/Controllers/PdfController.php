@@ -25,13 +25,19 @@ class PdfController extends BaseController
         $surat = new SuratModel();
         $pegawai = new PegawaiModel();
         $id = $this->request->getVar('id_surat');
+        $dataSelected = $surat->find($id);
         $data = [
-            'surat'  => $surat->find($id),
+            'surat'  => $dataSelected,
             'pegawai'  => $pegawai->where('id_surat_tugas', $id)->findAll(),
         ];
 
         // load HTML content
-        $dompdf->loadHtml(view('/export/pdf_spt', $data));
+        if ($dataSelected['tipe'] == 'sekda') {
+            $dompdf->loadHtml(view('/export/pdf_sekda', $data));
+        }
+        if ($dataSelected['tipe'] == 'bupati') {
+            $dompdf->loadHtml(view('/export/pdf_bupati', $data));
+        }
 
         // (optional) setup the paper size and orientation
         $dompdf->setPaper(array(0, 0, 609.4488, 935.433), 'portrait');

@@ -95,6 +95,23 @@
                                             <input required type="text" id="tempat-pelaksanaan" class="form-control" name="tempat" placeholder="Masukkan Tempat Pelaksanaan" />
                                         </div>
 
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Tipe SPT</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="form-check">
+                                                <input checked class="form-check-input" value="sekda" type="radio" name="tipe" id="flexRadioDefault2">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    SPT Sekretaris Daerah
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" value="bupati" type="radio" name="tipe" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    SPT Bupati
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -148,10 +165,37 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-3">
+                                            <label for="nominal-horizontal">Diterima dari</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="sumber" placeholder="Masukkan Nominal" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
                                             <label for="nominal-horizontal">Nominal</label>
                                         </div>
                                         <div class="col-md-9 form-group">
                                             <input autofocus required type="number" id="nominal-horizontal" class="form-control" name="nominal" placeholder="Masukkan Nominal" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Kode Rekening</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="kode_rekening" placeholder="Masukkan Kode Rekening" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="nominal-horizontal">Uraian</label>
+                                        </div>
+                                        <div class="col-md-9 form-group">
+                                            <input autofocus required type="text" id="nominal-horizontal" class="form-control" name="uraian" placeholder="Masukkan Uraian" />
                                         </div>
                                     </div>
                                 </div>

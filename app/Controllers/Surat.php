@@ -134,6 +134,13 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'tipe' => [
+                'label' => 'tipe',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
         ])) {
 
             $surat = new SuratModel();
@@ -149,11 +156,15 @@ class Surat extends BaseController
                 'ttd_nama' => $this->request->getVar('ttd_nama'),
                 'ttd_nip' => $this->request->getVar('ttd_nip'),
                 'ttd_golongan' => $this->request->getVar('ttd_golongan'),
+                'tipe' => $this->request->getVar('tipe'),
                 'status' => "diajukan",
             ]);
 
             $kwitansi->save([
                 'nominal' => $this->request->getVar('nominal'),
+                'kode_rekening' => $this->request->getVar('kode_rekening'),
+                'uraian' => $this->request->getVar('uraian'),
+                'sumber' => $this->request->getVar('sumber'),
                 'id_surat_tugas' => $surat->getInsertID(),
                 'status_kwitansi' => "diajukan",
             ]);
@@ -244,6 +255,13 @@ class Surat extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
+            'tipe' => [
+                'label' => 'tipe',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} Wajib diisi !',
+                ]
+            ],
         ])) {
 
             $data = [
@@ -257,6 +275,7 @@ class Surat extends BaseController
                 'ttd_nama' => $this->request->getVar('ttd_nama'),
                 'ttd_nip' => $this->request->getVar('ttd_nip'),
                 'ttd_golongan' => $this->request->getVar('ttd_golongan'),
+                'tipe' => $this->request->getVar('tipe'),
                 'status' => "diajukan",
             ];
             $user->set($data);
@@ -268,7 +287,7 @@ class Surat extends BaseController
         } else {
             // JIKA TIDAK VALID
             Session()->setFlashdata('errors', \config\Services::validation()->getErrors());
-            return redirect()->to('diajukan/add');
+            return redirect()->back();
         }
     }
 

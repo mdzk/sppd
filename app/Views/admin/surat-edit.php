@@ -86,6 +86,24 @@
                                             <input value="<?= $surat['tempat']; ?>" required type="text" id="tempat-pelaksanaan" class="form-control" name="tempat" placeholder="Masukkan Tempat Pelaksanaan" />
                                         </div>
 
+                                        <div class="col-md-3">
+                                            <label for="first-name-horizontal">Tipe SPT</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="form-check">
+                                                <input <?= $surat['tipe'] == 'sekda' ? 'checked' : ''; ?> class="form-check-input" value="sekda" type="radio" name="tipe" id="flexRadioDefault2">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    SPT Sekretaris Daerah
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input <?= $surat['tipe'] == 'bupati' ? 'checked' : ''; ?> class="form-check-input" value="bupati" type="radio" name="tipe" id="flexRadioDefault1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    SPT Bupati
+                                                </label>
+                                            </div>
+                                        </div>
+
 
                                     </div>
                                 </div>
@@ -111,7 +129,7 @@
                                             <label for="nominal-horizontal">Nama Penjabat</label>
                                         </div>
                                         <div class="col-md-9 form-group">
-                                            <input value="<?= $surat['ttd_nama']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="tdd_nama" placeholder="Masukkan Nama Penjabat" />
+                                            <input value="<?= $surat['ttd_nama']; ?>" required type="text" id="nominal-horizontal" class="form-control" name="ttd_nama" placeholder="Masukkan Nama Penjabat" />
                                         </div>
                                         <div class="col-md-3">
                                             <label for="nominal-horizontal">Golongan Penjabat</label>
