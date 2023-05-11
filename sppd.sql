@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 09, 2023 at 09:43 PM
+-- Generation Time: May 11, 2023 at 04:18 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -110,17 +110,18 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('user','admin','pimpinan','') NOT NULL
+  `role` enum('user','admin','pimpinan','') NOT NULL,
+  `foto` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `role`) VALUES
-(2, 'Muhammad Dzaky', 'admin', '$2y$10$4UDQyhiz801cUw50KR008uHU2Cgu05OyTF8w7AzggtzGF4kKXrwy2', 'admin'),
-(3, 'Staff Skretariat', 'user', '$2y$10$YcxItNHg/b.xcZ6G/38sWeIqEc.LnlWnBJGiF68oL66Mw/KyJvLK2', 'user'),
-(4, 'Kasubag Umum', 'pimpinan', '$2y$10$PqQXLr7cjChaEK6L.YAykuA/0m561ZCGcSr1cnXGqMEXfLEUlYaAu', 'pimpinan');
+INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `role`, `foto`) VALUES
+(2, 'Muhammad Dzaky', 'admin', '$2y$10$4UDQyhiz801cUw50KR008uHU2Cgu05OyTF8w7AzggtzGF4kKXrwy2', 'admin', '1683814333_2f4b68b460ee924f2914.jpg'),
+(3, 'Staff Skretariat', 'user', '$2y$10$YcxItNHg/b.xcZ6G/38sWeIqEc.LnlWnBJGiF68oL66Mw/KyJvLK2', 'user', 'default.jpg'),
+(4, 'Kasubag Umum', 'pimpinan', '$2y$10$PqQXLr7cjChaEK6L.YAykuA/0m561ZCGcSr1cnXGqMEXfLEUlYaAu', 'pimpinan', 'default.jpg');
 
 --
 -- Indexes for dumped tables
@@ -176,7 +177,7 @@ ALTER TABLE `surat_tugas`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

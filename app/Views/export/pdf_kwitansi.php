@@ -191,10 +191,10 @@
   font-family:"Times New Roman",serif'>&nbsp;</span></p>
                     <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
   line-height:115%'><b><u><span lang=IN style='font-size:12.0pt;line-height:
-  115%;font-family:"Times New Roman",serif'><?= $surat['ttd_nama']; ?></span></u></b></p>
+  115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></u></b></p>
                     <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
   line-height:115%'><span lang=IN style='font-size:12.0pt;line-height:115%;
-  font-family:"Times New Roman",serif'>NIP. <?= $surat['ttd_nip']; ?></span></p>
+  font-family:"Times New Roman",serif'>NIP. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                 </td>
             </tr>
             <tr>

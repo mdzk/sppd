@@ -56,6 +56,7 @@ class Users extends BaseController
                 'name' => $this->request->getVar('name'),
                 'username' => $this->request->getVar('username'),
                 'role' => $this->request->getVar('role'),
+                'foto' => 'default.jpg',
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ]);
 
@@ -71,6 +72,10 @@ class Users extends BaseController
     public function delete()
     {
         $user = new UsersModel();
+        $data = $user->find($this->request->getVar('id_users'));
+        if ($data['foto'] !== 'default.jpg') {
+            unlink('foto/' . $data['foto']);
+        }
         $user->delete($this->request->getVar('id_users'));
         session()->setFlashdata('pesan', 'Akun berhasil dihapus');
         return redirect()->to('users');
@@ -110,6 +115,7 @@ class Users extends BaseController
                 'name' => $this->request->getVar('name'),
                 'role' => $this->request->getVar('role'),
                 'username' => $this->request->getVar('username'),
+                'foto' => $data['foto'],
                 'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ]);
 
