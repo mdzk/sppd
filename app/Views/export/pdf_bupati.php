@@ -313,7 +313,7 @@ line-height:normal'>
             </div>
             <div style="text-align: center; font-weight: bold;">
                 <p style="width: 220pt;margin-bottom: 60pt;">a.n <?= $surat['ttd_jabatan']; ?></p>
-                <p><span style="text-decoration: underline;"><?= $surat['ttd_nama']; ?></span><br /> <?= $surat['ttd_golongan']; ?> <br /> NIP. <?= $surat['ttd_nip']; ?></p>
+                <p><span style="text-decoration: underline;"><?= $surat['ttd_nama']; ?></span></p>
             </div>
         </div>
     </div>
