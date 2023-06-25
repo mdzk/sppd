@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2023 at 05:52 AM
+-- Generation Time: May 31, 2023 at 11:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -64,7 +64,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
-(13, 'Muhammad Dzaky', NULL, NULL, 'Direktur', 20);
+(13, 'Muhammad Dzaky', NULL, 'IV/e', 'Direktur', 20);
 
 -- --------------------------------------------------------
 

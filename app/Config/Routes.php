@@ -53,6 +53,11 @@ $routes->get('/logout', 'Auth::logout', ['as' => 'logout']);
 $routes->get('/setting', 'Setting::index', ['as' => 'setting', 'filter' => 'auth']);
 $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', 'filter' => 'auth']);
 
+// Hasil Section
+$routes->get('/hasil', 'Hasil::index', ['as' => 'hasil', 'filter' => 'auth']);
+$routes->get('/hasil/add', 'Hasil::add', ['as' => 'hasil-add', 'filter' => 'auth:admin,user']);
+$routes->post('/hasil/save', 'Hasil::save', ['as' => 'hasil-save', 'filter' => 'auth']);
+
 // Surat Section
 $routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
 $routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth:admin,user']);

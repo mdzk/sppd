@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/simple-datatables/style.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/table-datatable.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/extensions/choices.js/public/assets/styles/choices.css" />
 </head>
 
 <body>
@@ -92,6 +93,13 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item <?= get_url(2, 'hasil') ? 'active' : '' ?>">
+                            <a href="<?= route_to('hasil'); ?>" class="sidebar-link">
+                                <i class="bi bi-book"></i>
+                                <span>Laporan Perjalanan</span>
+                            </a>
+                        </li>
+
                         <?php if ($_SESSION['role'] == 'admin') : ?>
                             <li class="sidebar-item <?= get_url(2, 'users') ? 'active' : '' ?>">
                                 <a href="<?= route_to('users'); ?>" class='sidebar-link'>
@@ -152,15 +160,33 @@
     <script src="<?= base_url(); ?>/assets/compiled/js/app.js"></script>
     <script src="<?= base_url(); ?>/assets/extensions/jquery/jquery.min.js"></script>
 
-
     <!-- Need: Apexcharts -->
     <script src="<?= base_url(); ?>/assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="<?= base_url(); ?>assets/extensions/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="<?= base_url(); ?>/assets/static/js/pages/simple-datatables.js"></script>
+
     <script>
         var wtf = $.ajax({
             url: "<?= base_url() . '/api/terlaksana'; ?>",
             async: false,
             dataType: 'json'
         }).responseJSON;
+
+        let choices = document.querySelectorAll(".choices")
+        let initChoice
+        for (let i = 0; i < choices.length; i++) {
+            if (choices[i].classList.contains("multiple-remove")) {
+                initChoice = new Choices(choices[i], {
+                    delimiter: ",",
+                    editItems: true,
+                    maxItemCount: -1,
+                    removeItemButton: true,
+                })
+            } else {
+                initChoice = new Choices(choices[i])
+            }
+        }
     </script>
     <script src="<?= base_url(); ?>/assets/static/js/pages/dashboard.js"></script>
 
@@ -177,8 +203,8 @@
         </script>
     <?php endif; ?>
 
-    <script src="<?= base_url(); ?>/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
-    <script src="<?= base_url(); ?>/assets/static/js/pages/simple-datatables.js"></script>
+
+
 </body>
 
 </html>
