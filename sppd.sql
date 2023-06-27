@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 31, 2023 at 11:50 AM
+-- Generation Time: Jun 27, 2023 at 10:16 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `sppd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hasil`
+--
+
+CREATE TABLE `hasil` (
+  `id_hasil` int(11) NOT NULL,
+  `notulis` varchar(255) NOT NULL,
+  `deskripsi` text NOT NULL,
+  `notulen` varchar(255) NOT NULL,
+  `surat_tugas_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hasil`
+--
+
+INSERT INTO `hasil` (`id_hasil`, `notulis`, `deskripsi`, `notulen`, `surat_tugas_id`) VALUES
+(20, 'Hal Yang Perlu Diperhatikan Dalam Perencanaan Pembangunan (Musrenbang)', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam convallis eros sed est bibendum finibus. Vestibulum in lacus at quam luctus efficitur. Nulla mattis et enim quis tempus. Aliquam libero nisl, sollicitudin in arcu eu, scelerisque egestas mauris. Praesent in felis lectus. Cras laoreet dictum blandit. Maecenas felis metus, sagittis maximus cursus ac, rutrum et nibh.\r\n\r\nUt bibendum molestie nunc ut consectetur. Nulla eget ex ut mi tincidunt euismod vel id diam. Proin varius justo ut ultricies blandit. Morbi nec urna neque. Suspendisse erat mauris, dapibus vitae diam efficitur, lobortis finibus lorem. Integer luctus nulla a sagittis rhoncus. Phasellus vel odio pretium, sollicitudin nulla vel, pretium arcu. Praesent volutpat orci id mi tincidunt, nec dignissim nulla accumsan. Ut cursus leo erat, cursus tincidunt augue rhoncus a.\r\n\r\nVestibulum eget nunc in tellus dapibus venenatis. Morbi venenatis aliquam turpis, et aliquam odio iaculis eu. Sed placerat tellus eget nulla tincidunt, vitae luctus risus semper. Nullam a cursus justo. Donec ullamcorper luctus velit nec fermentum. Fusce lacinia nisl a sodales vulputate. Nam faucibus elit orci, at molestie justo pharetra ut. Donec consequat turpis est, et ultrices mi finibus sit amet.', 'Dimas Sanjaya', 20);
 
 -- --------------------------------------------------------
 
@@ -42,7 +63,9 @@ CREATE TABLE `kwitansi` (
 --
 
 INSERT INTO `kwitansi` (`id_kwitansi`, `nominal`, `status_kwitansi`, `kode_rekening`, `uraian`, `sumber`, `id_surat_tugas`) VALUES
-(11, 1950000, 'diterima', '232.2232. 232', 'Lorem Ipsum dolor sit Amet Lorem Ipsum dolor sit Amet', 'BADAN PERENCANAAN PEMBANGUNAN PENELITIAN DAN PENGEMBANGAN KABUPATEN TANGGAMUS', 20);
+(11, 1950000, 'diterima', '232.2232. 232', 'Lorem Ipsum dolor sit Amet Lorem Ipsum dolor sit Amet', 'BADAN PERENCANAAN PEMBANGUNAN PENELITIAN DAN PENGEMBANGAN KABUPATEN TANGGAMUS', 20),
+(15, 23, 'diterima', 'jkj', 'jkj', 'jkj', 24),
+(16, 213, 'diajukan', 'sd', 'asd', 'asd', 25);
 
 -- --------------------------------------------------------
 
@@ -64,7 +87,8 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
-(13, 'Muhammad Dzaky', NULL, 'IV/e', 'Direktur', 20);
+(13, 'Muhammad Dzaky', NULL, 'IV/e', 'Direktur', 20),
+(16, 'sdafn', 'nnjk', 'njk', 'kjnkj', 24);
 
 -- --------------------------------------------------------
 
@@ -97,7 +121,7 @@ CREATE TABLE `surat_tugas` (
 --
 
 INSERT INTO `surat_tugas` (`id_surat_tugas`, `nama`, `nomor`, `dasar`, `status`, `tanggal_pelaksanaan`, `waktu`, `tempat`, `tanggal_ttd`, `bukti`, `tipe`, `ttd_jabatan`, `ttd_nama`, `ttd_golongan`, `ttd_nip`, `created_at`, `updated_at`) VALUES
-(20, 'Musyawarah Perencanaan Pembangunan (Musrenbang) Provinsi Lampung Tahun 2023 dalam Rangka Penyusunan RKPD Provinsi Lampung Tahun 2024', '090/23/123/2023', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus efficitur fermentum tempor. Suspendisse facilisis leo sed dapibus tincidunt. Aenean interdum felis quis quam eleifend, eu maximus ligula interdum. Vestibulum mi lectus, vulputate dignissim erat ac, fermentum sagittis ligula. Sed dictum at metus at tristique.', 'diterima', '2023-02-01', '00:02 s.d Selesai', 'Hotel Novotel', '2023-05-06 01:39:37', NULL, 'bupati', 'BUPATI TANGGAMUS SEKRETARIS DAERAH KABUPATEN', 'Mukhlis Santoso', 'Pembina Utama Madya', '1232 2323 23', '2023-05-06 01:32:46', '2023-05-06 01:39:37');
+(20, 'Musyawarah Perencanaan Pembangunan (Musrenbang) Provinsi Lampung Tahun 2023 dalam Rangka Penyusunan RKPD Provinsi Lampung Tahun 2024', '090/23/123/2023', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus efficitur fermentum tempor. Suspendisse facilisis leo sed dapibus tincidunt. Aenean interdum felis quis quam eleifend, eu maximus ligula interdum. Vestibulum mi lectus, vulputate dignissim erat ac, fermentum sagittis ligula. Sed dictum at metus at tristique.', 'selesai', '2023-02-01', '00:02 s.d Selesai', 'Hotel Novotel', '2023-05-06 01:39:37', '1687893303_1b01e32babbcf38eda49.png', 'sekda', 'BUPATI TANGGAMUS SEKRETARIS DAERAH KABUPATEN', 'Mukhlis Santoso', 'Pembina Utama Madya', '1232 2323 23', '2023-05-06 01:32:46', '2023-06-28 02:32:02');
 
 -- --------------------------------------------------------
 
@@ -128,6 +152,12 @@ INSERT INTO `users` (`id_users`, `name`, `username`, `password`, `role`, `foto`)
 --
 
 --
+-- Indexes for table `hasil`
+--
+ALTER TABLE `hasil`
+  ADD PRIMARY KEY (`id_hasil`);
+
+--
 -- Indexes for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
@@ -156,22 +186,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `hasil`
+--
+ALTER TABLE `hasil`
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
