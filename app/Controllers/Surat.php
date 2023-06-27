@@ -33,7 +33,10 @@ class Surat extends BaseController
 
         $surat = new SuratModel();
         $data = [
-            'surats'  => $surat->where('status', 'selesai')->orderBy('created_at', 'DESC')->findAll(),
+            'surats'  => $surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
+                ->where('hasil.surat_tugas_id IS NOT NULL')
+                ->where('status', 'selesai')
+                ->orderBy('created_at', 'DESC')->findAll(),
         ];
         return view('admin/surat-selesai', $data);
     }
@@ -42,6 +45,9 @@ class Surat extends BaseController
     {
 
         $surat = new SuratModel();
+        if ($surat->find($id) == NULL) {
+            return redirect()->to('diajukan');
+        }
         $data = [
             'surat'  => $surat->find($id),
         ];
@@ -310,6 +316,9 @@ class Surat extends BaseController
         $pegawai = new PegawaiModel();
 
         $data = $surat->find($id);
+        if ($data == NULL) {
+            return redirect()->back();
+        }
         $id = $data['id_surat_tugas'];
         $data = [
             'surat'  => $surat->find($id),
@@ -360,19 +369,32 @@ class Surat extends BaseController
                 ]
             ],
         ])) {
-            $user = new SuratModel();
+            $surat = new SuratModel();
 
             $file = $this->request->getFile('bukti');
             $nama_file = $file->getRandomName();
 
+            if ($surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
+                ->where('hasil.surat_tugas_id', $this->request->getVar('id_surat'))
+                ->find()
+            ) {
+                $status = 'selesai';
+            };
+
+            if ($surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
+                ->where('hasil.surat_tugas_id IS NULL')
+                ->find()
+            ) {
+                $status = 'diterima';
+            };
             $data = [
-                'status' => "selesai",
+                'status' => $status,
                 'bukti'  => $nama_file,
             ];
 
-            $user->set($data);
-            $user->where('id_surat_tugas', $this->request->getVar('id_surat'));
-            $user->update();
+            $surat->set($data);
+            $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $surat->update();
 
             $file->move('bukti', $nama_file);
 

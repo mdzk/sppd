@@ -42,34 +42,34 @@
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($hasil as $surat) :
+                        foreach ($hasil as $data) :
                         ?>
                             <tr>
-                                <td><?= $surat['nama']; ?></td>
-                                <td><?= tanggal($surat['tanggal_pelaksanaan']); ?></td>
-                                <td><?= $surat['tempat']; ?></td>
-                                <td><?= $surat['notulen'] ?></td>
+                                <td><?= $data['nama']; ?></td>
+                                <td><?= tanggal($data['tanggal_pelaksanaan']); ?></td>
+                                <td><?= $data['tempat']; ?></td>
+                                <td><?= $data['notulen'] ?></td>
                                 <td>
-                                    <a href="<?= base_url('diajukan/detail/' . $surat['id_surat_tugas']); ?>" class="btn btn-light-primary btn-icon action-icon">
+                                    <a href="<?= base_url('hasil/detail/' . $data['id_hasil']); ?>" class="btn btn-light-primary btn-icon action-icon">
                                         <span class="fonticon-wrap">
                                             <i class="bi bi-eye-fill"></i>
                                         </span>
                                     </a>
                                     <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
-                                        <a href="<?= base_url(''); ?>diajukan/edit/<?= $surat['id_surat_tugas']; ?>" class="btn btn-light-warning btn-icon action-icon">
+                                        <a href="<?= base_url(''); ?>hasil/edit/<?= $data['id_hasil']; ?>" class="btn btn-light-warning btn-icon action-icon">
                                             <span class="fonticon-wrap">
                                                 <i class="bi bi-pencil-fill"></i>
                                             </span>
                                         </a>
 
-                                        <button class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#hapussurat<?= $surat['id_surat_tugas']; ?>">
+                                        <button class="btn btn-light-danger btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#hapussurat<?= $data['id_hasil']; ?>">
                                             <span class=" fonticon-wrap">
                                                 <i class="bi bi-trash-fill"></i>
                                             </span>
                                         </button>
 
                                         <!--Hapus Surat Modal Content -->
-                                        <div class="modal fade text-left modal-borderless" id="hapussurat<?= $surat['id_surat_tugas']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal fade text-left modal-borderless" id="hapussurat<?= $data['id_hasil']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -79,14 +79,14 @@
                                                         </button>
                                                     </div>
 
-                                                    <form action="<?= route_to('diajukan-delete'); ?>" method="POST">
+                                                    <form action="<?= route_to('hasil-delete'); ?>" method="POST">
 
                                                         <div class="modal-body">
                                                             <p>
-                                                                Apakah anda yakin ingin menghapus SPT ini?
+                                                                Apakah anda yakin ingin menghapus Laporan Perjalanan ini?
                                                             </p>
                                                         </div>
-                                                        <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                        <input type="number" name="id_hasil" value="<?= $data['id_hasil']; ?>" hidden>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
 

@@ -36,6 +36,7 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'Home::index', ['as' => 'home', 'filter' => 'auth']);
 $routes->get('/api/terlaksana', 'Home::terlaksana', ['as' => 'api-terlaksana', 'filter' => 'auth']);
 $routes->post('/pdf/spt', 'PdfController::spt', ['as' => 'pdf-spt', 'filter' => 'auth']);
+$routes->post('/pdf/hasil', 'PdfController::hasil', ['as' => 'pdf-hasil', 'filter' => 'auth']);
 $routes->post('/pdf/kwitansi', 'PdfController::kwitansi', ['as' => 'pdf-kwitansi', 'filter' => 'auth']);
 
 // Users Section
@@ -57,6 +58,10 @@ $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', '
 $routes->get('/hasil', 'Hasil::index', ['as' => 'hasil', 'filter' => 'auth']);
 $routes->get('/hasil/add', 'Hasil::add', ['as' => 'hasil-add', 'filter' => 'auth:admin,user']);
 $routes->post('/hasil/save', 'Hasil::save', ['as' => 'hasil-save', 'filter' => 'auth']);
+$routes->post('/hasil/delete', 'Hasil::delete', ['as' => 'hasil-delete', 'filter' => 'auth']);
+$routes->get('/hasil/detail/(:num)', 'Hasil::show/$1', ['as' => 'hasil-show', 'filter' => 'auth']);
+$routes->get('/hasil/edit/(:num)', 'Hasil::edit/$1', ['as' => 'hasil-edit', 'filter' => 'auth']);
+$routes->post('/hasil/update', 'Hasil::update', ['as' => 'hasil-update', 'filter' => 'auth']);
 
 // Surat Section
 $routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
