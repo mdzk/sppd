@@ -15,6 +15,19 @@ class Kwitansi extends BaseController
                 ->join('surat_tugas', 'surat_tugas.id_surat_tugas = kwitansi.id_surat_tugas')
                 ->findAll(),
         ];
+
+        if (get_user('role') == 'user') {
+            $data = [
+                'kwitansi'  => $kwitansi->where('id_users', get_user('id_users'))
+                ->join('surat_tugas', 'surat_tugas.id_surat_tugas = kwitansi.id_surat_tugas')
+                ->findAll(),
+            ];
+        } else {
+            $data = [
+                'kwitansi'  => $kwitansi->join('surat_tugas', 'surat_tugas.id_surat_tugas = kwitansi.id_surat_tugas')
+                ->findAll(),
+            ];
+        }
         return view('admin/kwitansi', $data);
     }
 

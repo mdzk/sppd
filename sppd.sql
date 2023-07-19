@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 19, 2023 at 03:16 AM
+-- Generation Time: Jul 19, 2023 at 03:25 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -35,13 +35,6 @@ CREATE TABLE `hasil` (
   `surat_tugas_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `hasil`
---
-
-INSERT INTO `hasil` (`id_hasil`, `notulis`, `deskripsi`, `notulen`, `surat_tugas_id`) VALUES
-(22, 'notulis', 'sada', 'sad', 28);
-
 -- --------------------------------------------------------
 
 --
@@ -58,14 +51,6 @@ CREATE TABLE `kwitansi` (
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `kwitansi`
---
-
-INSERT INTO `kwitansi` (`id_kwitansi`, `nominal`, `status_kwitansi`, `kode_rekening`, `uraian`, `sumber`, `id_surat_tugas`) VALUES
-(18, 21321, 'diajukan', 'sdf', 'sdfds', 'budi', 27),
-(19, 21321, 'diterima', 'asd', 'ads', 'asd', 28);
-
 -- --------------------------------------------------------
 
 --
@@ -80,13 +65,6 @@ CREATE TABLE `pegawai` (
   `jabatan` varchar(255) NOT NULL,
   `id_surat_tugas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pegawai`
---
-
-INSERT INTO `pegawai` (`id_pegawai`, `nama`, `nip`, `pangkat`, `jabatan`, `id_surat_tugas`) VALUES
-(18, 'asfd', '213', 'asd', 'sfa', 28);
 
 -- --------------------------------------------------------
 
@@ -114,13 +92,6 @@ CREATE TABLE `surat_tugas` (
   `updated_at` datetime DEFAULT NULL,
   `id_users` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `surat_tugas`
---
-
-INSERT INTO `surat_tugas` (`id_surat_tugas`, `nama`, `nomor`, `dasar`, `status`, `tanggal_pelaksanaan`, `waktu`, `tempat`, `tanggal_ttd`, `bukti`, `tipe`, `ttd_jabatan`, `ttd_nama`, `ttd_golongan`, `ttd_nip`, `created_at`, `updated_at`, `id_users`) VALUES
-(28, 'namam', 'masdnkjn', 'kjn', 'selesai', '2024-08-20', '08:20 s.d sleelsao', 'adas', '2023-07-19 07:27:23', '1689726579_13da0bbcdc39e3e8ea70.png', 'bupati', 'ASD', 'ads', 'asd', 'asd', '2023-07-19 07:19:58', '2023-07-19 07:31:03', 11);
 
 -- --------------------------------------------------------
 
@@ -213,19 +184,19 @@ ALTER TABLE `hasil`
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tokens`
@@ -237,7 +208,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
