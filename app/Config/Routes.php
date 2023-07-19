@@ -45,6 +45,17 @@ $routes->post('/users/add', 'Users::add', ['as' => 'users-add', 'filter' => 'aut
 $routes->post('/users/delete', 'Users::delete', ['as' => 'users-delete', 'filter' => 'auth:admin']);
 $routes->post('/users/update', 'Users::update', ['as' => 'users-update', 'filter' => 'auth:admin']);
 
+// Register Section
+$routes->get('/register', 'Auth::register', ['as' => 'register']);
+$routes->post('/register/store', 'Auth::registerStore', ['as' => 'register-store']);
+
+// Forgot Section
+// --- Forgot Password Section
+$routes->get('/forgot', 'Auth::forgot', ['as' => 'forgot']);
+$routes->post('/forgot/password', 'Auth::forgotPassword', ['as' => 'forgot-password']);
+$routes->get('/reset-password/(:segment)', 'Auth::resetPassword/$1', ['as' => 'reset-password']);
+$routes->post('/update-password', 'Auth::updatePassword', ['as' => 'update-password']);
+
 // Authentication Section
 $routes->get('/login', 'Auth::index', ['as' => 'login']);
 $routes->post('/login/auth', 'Auth::auth', ['as' => 'auth']);
@@ -56,37 +67,40 @@ $routes->post('/setting/update', 'Setting::update', ['as' => 'setting-update', '
 
 // Hasil Section
 $routes->get('/hasil', 'Hasil::index', ['as' => 'hasil', 'filter' => 'auth']);
-$routes->get('/hasil/add', 'Hasil::add', ['as' => 'hasil-add', 'filter' => 'auth:admin,user']);
+$routes->get('/hasil/add', 'Hasil::add', ['as' => 'hasil-add', 'filter' => 'auth:user']);
 $routes->post('/hasil/save', 'Hasil::save', ['as' => 'hasil-save', 'filter' => 'auth']);
-$routes->post('/hasil/delete', 'Hasil::delete', ['as' => 'hasil-delete', 'filter' => 'auth']);
+$routes->post('/hasil/delete', 'Hasil::delete', ['as' => 'hasil-delete', 'filter' => 'auth:user']);
 $routes->get('/hasil/detail/(:num)', 'Hasil::show/$1', ['as' => 'hasil-show', 'filter' => 'auth']);
-$routes->get('/hasil/edit/(:num)', 'Hasil::edit/$1', ['as' => 'hasil-edit', 'filter' => 'auth']);
-$routes->post('/hasil/update', 'Hasil::update', ['as' => 'hasil-update', 'filter' => 'auth']);
+$routes->get('/hasil/edit/(:num)', 'Hasil::edit/$1', ['as' => 'hasil-edit', 'filter' => 'auth:user']);
+$routes->post('/hasil/update', 'Hasil::update', ['as' => 'hasil-update', 'filter' => 'auth:user']);
 
 // Surat Section
 $routes->get('/diajukan', 'Surat::index', ['as' => 'diajukan', 'filter' => 'auth']);
-$routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth:admin,user']);
-$routes->get('/diajukan/edit/(:num)', 'Surat::edit/$1', ['as' => 'diajukan-edit', 'filter' => 'auth']);
+$routes->get('/diajukan/add', 'Surat::add', ['as' => 'diajukan-add', 'filter' => 'auth:user']);
+$routes->get('/diajukan/edit/(:num)', 'Surat::edit/$1', ['as' => 'diajukan-edit', 'filter' => 'auth:user']);
 $routes->get('/diajukan/detail/(:num)', 'Surat::show/$1', ['as' => 'diajukan-show', 'filter' => 'auth']);
-$routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth']);
-$routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth']);
-$routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth']);
-$routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth:admin']);
+$routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter' => 'auth:user']);
+$routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth:user']);
+$routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth:user']);
+$routes->post('/diajukan/process', 'Surat::process', ['as' => 'diajukan-process', 'filter' => 'auth:admin']);
+$routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth:pimpinan']);
 
-$routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
+$routes->get('/diproses', 'Surat::diproses', ['as' => 'diproses', 'filter' => 'auth']);
+
+$routes->get('/diterima', 'Surat::diterima', [ 'as' => 'diterima', 'filter' => 'auth']);
 $routes->post('/diterima/finish', 'Surat::finish', ['as' => 'diterima-finish', 'filter' => 'auth']);
 
 $routes->get('/selesai', 'Surat::selesai', ['as' => 'selesai', 'filter' => 'auth']);
 
 // Pegawai Section
-$routes->post('/pegawai/save', 'Pegawai::save', ['as' => 'pegawai-save', 'filter' => 'auth']);
-$routes->post('/pegawai/update', 'Pegawai::update', ['as' => 'pegawai-update', 'filter' => 'auth']);
-$routes->post('/pegawai/delete', 'Pegawai::delete', ['as' => 'pegawai-delete', 'filter' => 'auth']);
+$routes->post('/pegawai/save', 'Pegawai::save', ['as' => 'pegawai-save', 'filter' => 'auth:user']);
+$routes->post('/pegawai/update', 'Pegawai::update', ['as' => 'pegawai-update', 'filter' => 'auth:user']);
+$routes->post('/pegawai/delete', 'Pegawai::delete', ['as' => 'pegawai-delete', 'filter' => 'auth:user']);
 
 // Kwitansi Section
 $routes->get('/kwitansi', 'Kwitansi::index', ['as' => 'kwitansi', 'filter' => 'auth']);
-$routes->post('/kwitansi/save', 'Kwitansi::save', ['as' => 'kwitansi-save', 'filter' => 'auth']);
-$routes->post('/kwitansi/update', 'Kwitansi::update', ['as' => 'kwitansi-update', 'filter' => 'auth']);
+$routes->post('/kwitansi/save', 'Kwitansi::save', ['as' => 'kwitansi-save', 'filter' => 'auth:user']);
+$routes->post('/kwitansi/update', 'Kwitansi::update', ['as' => 'kwitansi-update', 'filter' => 'auth:user']);
 $routes->post('/kwitansi/accept', 'Kwitansi::accept', ['as' => 'kwitansi-accept', 'filter' => 'auth:admin']);
 /*
  * --------------------------------------------------------------------

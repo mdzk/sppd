@@ -11,9 +11,18 @@ class Hasil extends BaseController
     {
 
         $hasil = new HasilModel();
-        $data = [
-            'hasil'  => $hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->findAll(),
-        ];
+        if (get_user('role') == 'user') {
+            $data = [
+                'hasil'  => $hasil->where('id_users', get_user('id_users'))
+                    ->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')
+                    ->findAll(),
+            ];
+        } else {
+            $data = [
+                'hasil'  => $hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')
+                    ->findAll(),
+            ];
+        }
         return view('admin/hasil', $data);
     }
 
@@ -24,6 +33,7 @@ class Hasil extends BaseController
             'surat' => $surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
                 ->where('hasil.surat_tugas_id IS NULL')
                 ->where('status', 'diterima')
+                ->where('id_users', get_user('id_users'))
                 ->findAll()
         ];
         return view('admin/hasil-add', $data);
@@ -98,6 +108,10 @@ class Hasil extends BaseController
     {
         $hasil = new HasilModel();
 
+        if (get_user('role') == 'user' && !$hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
+        }
+
         $hasilData = $hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')
             ->where('hasil.id_hasil', $this->request->getVar('id_hasil'))
             ->get()
@@ -124,6 +138,10 @@ class Hasil extends BaseController
         if ($hasil->find($id) == NULL) {
             return redirect()->back();
         }
+
+        if (get_user('role') == 'user' && !$hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
+        }
         $data = [
             'surat'  => $hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->find($id),
         ];
@@ -136,6 +154,9 @@ class Hasil extends BaseController
         $surat = new SuratModel();
         if ($hasil->find($id) == NULL) {
             return redirect()->to('hasil');
+        }
+        if (get_user('role') == 'user' && !$hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
         }
         $data = [
             'surat' => $surat->findAll(),

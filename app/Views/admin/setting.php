@@ -73,9 +73,9 @@
                                         </div>
 
                                         <div class="ms-3 name">
-                                            <span class="text-muted">Username</span>
-                                            <h5 class="font-bold"><?= $user['username']; ?>
-                                                <button type="button" class="btn btn-sm btn-light-secondary btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#editusername"> Edit
+                                            <span class="text-muted">Email</span>
+                                            <h5 class="font-bold"><?= $user['email']; ?>
+                                                <button type="button" class="btn btn-sm btn-light-secondary btn-icon action-icon" data-bs-toggle="modal" data-bs-target="#editemail"> Edit
                                                 </button>
                                             </h5>
                                         </div>
@@ -164,18 +164,18 @@
                 </div>
                 <!--Edit Nama Modal Content End-->
 
-                <!--Edit Username Modal Content -->
-                <div class="modal fade text-left modal-borderless" id="editusername">
+                <!--Edit Email Modal Content -->
+                <div class="modal fade text-left modal-borderless" id="editemail">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit username</h5>
+                                <h5 class="modal-title">Edit email</h5>
                             </div>
                             <input type="hidden" wire:model="categoryId">
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="basicInput">Masukkan Username</label>
-                                    <input type="text" value="<?= $user['username']; ?>" name="username" class="form-control" id="basicInput" placeholder="ketik disini">
+                                    <label for="basicInput">Masukkan Email</label>
+                                    <input type="text" value="<?= $user['email']; ?>" name="email" class="form-control" id="basicInput" placeholder="ketik disini">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Edit Username Modal Content End-->
+                <!--Edit Email Modal Content End-->
 
                 <!--Edit foto Modal Content -->
                 <div class="modal fade text-left modal-borderless" id="editfoto">
@@ -216,7 +216,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Edit Username Modal Content End-->
+                <!--Edit Email Modal Content End-->
 
                 <!--Edit Password Modal Content -->
                 <div class="modal fade text-left modal-borderless" id="editpassword">

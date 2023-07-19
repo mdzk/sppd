@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'user') : ?>
+    <?php if (get_user('role') == 'user') : ?>
         <a class="btn btn-primary rounded-pill mb-4" href="<?= base_url('hasil/add'); ?>">+ Tambah Laporan Baru</a>
     <?php endif; ?>
     <section class="section">
@@ -55,7 +55,7 @@
                                             <i class="bi bi-eye-fill"></i>
                                         </span>
                                     </a>
-                                    <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                    <?php if (get_user('role') == 'user') : ?>
                                         <a href="<?= base_url(''); ?>hasil/edit/<?= $data['id_hasil']; ?>" class="btn btn-light-warning btn-icon action-icon">
                                             <span class="fonticon-wrap">
                                                 <i class="bi bi-pencil-fill"></i>

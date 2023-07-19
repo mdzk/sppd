@@ -65,11 +65,11 @@
                 <div class="card-body py-4 px-4">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-xl">
-                            <img src="<?= base_url(); ?>/foto/<?= $user['foto']; ?>" alt="Face 1" />
+                            <img src="<?= base_url(); ?>/foto/<?= get_user('foto'); ?>" alt="Face 1" />
                         </div>
                         <div class="ms-3 name">
-                            <h5 class="font-bold"><?= $user['name']; ?></h5>
-                            <h6 class="text-muted mb-0">@<?= $user['username']; ?></h6>
+                            <h5 class="font-bold"><?= get_user('name'); ?></h5>
+                            <h6 class="text-muted mb-0"><?= get_user('email'); ?></h6>
                         </div>
                     </div>
                 </div>

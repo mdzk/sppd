@@ -5,9 +5,9 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar SPT Diterima</h3>
+                <h3>Daftar SPT Diproses</h3>
                 <p class="text-subtitle text-muted">
-                    SPT yang telah diterima oleh Pimpinan.
+                    SPT yang telah diproses oleh Admin.
                 </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -20,7 +20,7 @@
                             <a href="index.html">SPT</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Diterima
+                            Diproses
                         </li>
                     </ol>
                 </nav>

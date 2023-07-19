@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login - SPPD</title>
+    <title>Lupa password - SPPD</title>
 
     <link rel="shortcut icon" href="<?= base_url(); ?>/assets/compiled/png/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app.css" />
@@ -23,36 +23,30 @@
                     <div class="auth-logo">
                         <a href="index.html"><img src="<?= base_url(); ?>/assets/compiled/png/logo.png" alt="Logo" /></a>
                     </div>
-                    <h1 class="auth-title">Log in.</h1>
+                    <h1 class="auth-title">Lupa Password</h1>
                     <p class="auth-subtitle mb-5">
-                        Silakan masuk dengan akun yang sudah didaftarkan.
+                        Silakan masukkan email akun anda.
                     </p>
 
-                    <?php if (session()->getFlashdata('msg')) : ?>
-                        <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
+                    <?php if ($errors = session()->getFlashdata('errors')) : ?>
+                        <div class="alert alert-danger alert-dismissible show fade">
+                            <?= session()->getFlashdata('errors'); ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     <?php endif; ?>
-                    <form action="<?= route_to('auth'); ?>" method="POST">
+                    <form action="<?= route_to('forgot-password'); ?>" method="POST">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="email" class="form-control form-control-xl" name="email" placeholder="Email" />
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" name="password" placeholder="Password" />
-                            <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+                        <button type="submit" name="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Submit</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">
-                            Belum memilik akun?
-                            <a href="<?= route_to('register'); ?>" class="font-bold">daftar</a>
-                        </p>
-                        <p>
-                            <a class="font-bold" href="<?= route_to('forgot'); ?>">Lupa password?</a>
+                            Sudah memilik akun?
+                            <a href="<?= route_to('login'); ?>" class="font-bold">login</a>.
                         </p>
                     </div>
                 </div>

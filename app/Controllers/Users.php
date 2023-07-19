@@ -28,12 +28,12 @@ class Users extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'username' => [
-                'label' => 'Username',
-                'rules' => "required|is_unique[users.username]",
+            'email' => [
+                'label' => 'Email',
+                'rules' => "required|is_unique[users.email]",
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
-                    'is_unique' => 'Username sudah digunakan, cari yang lain!'
+                    'is_unique' => 'Email sudah digunakan, cari yang lain!'
                 ]
             ],
             'role' => [
@@ -54,7 +54,7 @@ class Users extends BaseController
             $user = new UsersModel();
             $user->save([
                 'name' => $this->request->getVar('name'),
-                'username' => $this->request->getVar('username'),
+                'email' => $this->request->getVar('email'),
                 'role' => $this->request->getVar('role'),
                 'foto' => 'default.jpg',
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
@@ -94,12 +94,12 @@ class Users extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'username' => [
-                'label' => 'Username',
-                'rules' => "required|is_unique[users.username, id_users, $id]",
+            'email' => [
+                'label' => 'Email',
+                'rules' => "required|is_unique[users.email, id_users, $id]",
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
-                    'is_unique' => 'Username sudah digunakan, cari yang lain!'
+                    'is_unique' => 'Email sudah digunakan, cari yang lain!'
                 ]
             ],
             'role' => [
@@ -114,7 +114,7 @@ class Users extends BaseController
                 'id_users' => $this->request->getVar('id_users'),
                 'name' => $this->request->getVar('name'),
                 'role' => $this->request->getVar('role'),
-                'username' => $this->request->getVar('username'),
+                'email' => $this->request->getVar('email'),
                 'foto' => $data['foto'],
                 'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ]);

@@ -28,12 +28,12 @@ class Setting extends BaseController
                     'required' => '{field} Wajib diisi !',
                 ]
             ],
-            'username' => [
-                'label' => 'Username',
-                'rules' => "required|is_unique[users.username, id_users, $id]",
+            'email' => [
+                'label' => 'Email',
+                'rules' => "required|is_unique[users.email, id_users, $id]",
                 'errors' => [
                     'required' => '{field} Wajib diisi !',
-                    'is_unique' => 'Username sudah digunakan, cari yang lain!'
+                    'is_unique' => 'Email sudah digunakan, cari yang lain!'
                 ]
             ],
             'foto' => [
@@ -50,16 +50,17 @@ class Setting extends BaseController
                 $user->replace([
                     'id_users' => $this->request->getVar('id_users'),
                     'name' => $this->request->getVar('name') ? $this->request->getVar('name') : $data['name'],
-                    'username' => $this->request->getVar('username') ? $this->request->getVar('username') : $data['username'],
+                    'email' => $this->request->getVar('email') ? $this->request->getVar('email') : $data['email'],
                     'role' => $data['role'],
                     'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+                    'foto' => $data['foto'],
                 ]);
             } else {
                 $nama_file = $foto->getRandomName();
                 $user->replace([
                     'id_users' => $this->request->getVar('id_users'),
                     'name' => $this->request->getVar('name') ? $this->request->getVar('name') : $data['name'],
-                    'username' => $this->request->getVar('username') ? $this->request->getVar('username') : $data['username'],
+                    'email' => $this->request->getVar('email') ? $this->request->getVar('email') : $data['email'],
                     'role' => $data['role'],
                     'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                     'foto' => $nama_file,

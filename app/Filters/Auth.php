@@ -20,7 +20,7 @@ class Auth implements FilterInterface
                 return redirect()->to('/');
             }
 
-            // if ($_SESSION['role'] !== $arguments[0]) {
+            // if (get_user('role') !== $arguments[0]) {
             //     return redirect()->to('/');
             // }
         }

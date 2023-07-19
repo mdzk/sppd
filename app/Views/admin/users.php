@@ -57,9 +57,9 @@
                                     </div>
 
                                     <div class="form-group has-icon-left">
-                                        <label for="username">Username</label>
+                                        <label for="email">Email</label>
                                         <div class="position-relative">
-                                            <input type="text" name="username" class="form-control" placeholder="Masukkan Username" id="username">
+                                            <input type="text" name="email" class="form-control" placeholder="Masukkan Email" id="email">
                                             <div class="form-control-icon">
                                                 <i class="bi bi-person-badge"></i>
                                             </div>
@@ -203,9 +203,9 @@
                                                                 </div>
 
                                                                 <div class="form-group has-icon-left">
-                                                                    <label for="username">Username</label>
+                                                                    <label for="email">Email</label>
                                                                     <div class="position-relative">
-                                                                        <input value="<?= $user['username']; ?>" type="text" name="username" class="form-control" placeholder="Masukkan Username" id="username">
+                                                                        <input value="<?= $user['email']; ?>" type="text" name="email" class="form-control" placeholder="Masukkan Email" id="email">
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-person-badge"></i>
                                                                         </div>

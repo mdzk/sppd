@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app-dark.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/iconly.css" />
 
-    <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.min.css" />
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/simple-datatables/style.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/table-datatable.css" />
@@ -64,7 +64,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item <?= get_url(2, 'diajukan') ? 'active' : '' ?> <?= get_url(2, 'diterima') ? 'active' : '' ?> <?= get_url(2, 'selesai') ? 'active' : '' ?> has-sub">
+                        <li class="sidebar-item <?= get_url(2, 'diajukan') ? 'active' : '' ?> <?= get_url(2, 'diterima') ? 'active' : '' ?> <?= get_url(2, 'selesai') ? 'active' : '' ?> <?= get_url(2, 'diproses') ? 'active' : '' ?> has-sub">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-file-earmark-medical-fill"></i>
                                 <span>SPT</span>
@@ -73,6 +73,10 @@
                             <ul class="submenu">
                                 <li class="submenu-item <?= get_url(2, 'diajukan') ? 'active' : '' ?>">
                                     <a href="<?= base_url('diajukan'); ?>" class="submenu-link">Diajukan</a>
+                                </li>
+
+                                <li class="submenu-item <?= get_url(2, 'diproses') ? 'active' : '' ?>">
+                                    <a href="<?= base_url('diproses'); ?>" class="submenu-link">Diproses</a>
                                 </li>
 
                                 <li class="submenu-item <?= get_url(2, 'diterima') ? 'active' : '' ?>">
@@ -100,7 +104,7 @@
                             </a>
                         </li>
 
-                        <?php if ($_SESSION['role'] == 'admin') : ?>
+                        <?php if (get_user('role') == 'admin') : ?>
                             <li class="sidebar-item <?= get_url(2, 'users') ? 'active' : '' ?>">
                                 <a href="<?= route_to('users'); ?>" class='sidebar-link'>
                                     <i class="bi bi-people-fill"></i>

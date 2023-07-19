@@ -58,11 +58,11 @@
                                     if ($surat['status'] !== 'diajukan') :
                                     ?>
                                         <button class="disabled btn btn-outline btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
-                                            SPT <?= $surat['status'] == 'diterima' ? 'Diterima' : 'Selesai'; ?>
+                                            SPT <?= $surat['status']; ?>
                                         </button>
                                     <?php endif; ?>
                                     <?php if (empty($kwitansi[0])) : ?>
-                                        <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                        <?php if (get_user('role') == 'user' || get_user('role') == 'admin') : ?>
                                             <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#kwitansi">
                                                 <span class="fonticon-wrap">
                                                     <i class="bi bi-receipt me-1"></i>
@@ -174,8 +174,8 @@
                                         </div>
                                         <!-- Lihat Kwitansi Modal End -->
 
-                                        <?php if ($kwitansi[0]['status_kwitansi'] == "diajukan") : ?>
-                                            <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                        <?php if ($surat['status'] == "diajukan") : ?>
+                                            <?php if (get_user('role') == 'user') : ?>
                                                 <button class="btn btn-light-warning btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#editkwitansi">
                                                     <span class="fonticon-wrap">
                                                         <i class="bi bi-pencil-fill me-1"></i>
@@ -233,13 +233,13 @@
 
                                         <?php
                                         if (!empty($kwitansi[0])) :
-                                            if ($kwitansi[0]['status_kwitansi'] == "diajukan" && $surat['status'] == 'diajukan' && $_SESSION['role'] == 'admin' && $jumlah_pegawai > 0) :
+                                            if ($kwitansi[0]['status_kwitansi'] == "diajukan" && $surat['status'] == 'diajukan' && get_user('role') == 'admin' && $jumlah_pegawai > 0) :
                                         ?>
 
                                                 <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
                                                     <span class="fonticon-wrap">
                                                         <i class="bi bi-check me-1"></i>
-                                                    </span> Verifikasi SPT
+                                                    </span> Proses SPT
                                                 </button>
 
                                                 <!-- Start Modal -->
@@ -253,11 +253,10 @@
                                                                 </button>
                                                             </div>
 
-                                                            <form action="<?= route_to('diajukan-accept'); ?>" method="POST">
-
+                                                            <form action="<?= route_to('diajukan-process'); ?>" method="POST">
                                                                 <div class="modal-body">
                                                                     <p>
-                                                                        Apakah anda yakin ingin verifikasi SPT ini?
+                                                                        Apakah anda yakin ingin proses SPT ini?
                                                                     </p>
                                                                 </div>
                                                                 <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
@@ -279,8 +278,57 @@
                                                 <!-- End Modal -->
                                         <?php endif;
                                         endif; ?>
+
                                         <?php
-                                        if ($surat['status'] !== 'diajukan') :
+                                        if (!empty($kwitansi[0])) :
+                                            if ($kwitansi[0]['status_kwitansi'] == "diajukan" && $surat['status'] == 'diproses' && get_user('role') == 'pimpinan' && $jumlah_pegawai > 0) :
+                                        ?>
+
+                                                <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#setujispt">
+                                                    <span class="fonticon-wrap">
+                                                        <i class="bi bi-check me-1"></i>
+                                                    </span> Terima SPT
+                                                </button>
+
+                                                <!-- Start Modal -->
+                                                <div class="modal fade text-left modal-borderless" id="setujispt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Peringatan</h5>
+                                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <i data-feather="x"></i>
+                                                                </button>
+                                                            </div>
+
+                                                            <form action="<?= route_to('diajukan-accept'); ?>" method="POST">
+                                                                <div class="modal-body">
+                                                                    <p>
+                                                                        Apakah anda yakin ingin terima SPT ini?
+                                                                    </p>
+                                                                </div>
+                                                                <input type="number" name="id_surat" value="<?= $surat['id_surat_tugas']; ?>" hidden>
+                                                                <input type="number" name="id_kwitansi" value="<?= $kwitansi[0]['id_kwitansi'] ?>" hidden>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light-primary ml-1" data-bs-dismiss="modal">
+
+                                                                        <span class="d-sm-block">Tidak</span>
+                                                                    </button>
+                                                                    <button name="submit" type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                                                        <span class="d-sm-block">Ya</span>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Modal -->
+                                        <?php endif;
+                                        endif; ?>
+
+                                        <?php
+                                        if ($surat['status'] == 'diterima') :
                                         ?>
 
                                             <form method="POST" class="d-inline" action="<?= route_to('pdf-spt'); ?>">
@@ -297,7 +345,7 @@
 
 
                                             <?php if ($surat['bukti'] == NULL && $kwitansi[0]['status_kwitansi'] == 'diterima') : ?>
-                                                <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                                                <?php if (get_user('role') == 'user' || get_user('role') == 'admin') : ?>
                                                     <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
                                                         <span class="fonticon-wrap">
                                                             <i class="bi bi-upload me-1"></i>
@@ -522,7 +570,7 @@
                                     </div>
                                 </div>
                                 <?php
-                                if ($surat['status'] == 'diajukan') :
+                                if ($surat['status'] == 'diajukan' && get_user('role') == 'user') :
                                 ?>
                                     <div class="col-md-3">
                                         <div class="px-4 py-3">
@@ -638,7 +686,7 @@
                     <?php
                     if ($surat['status'] == 'diajukan') :
                     ?>
-                        <?php if ($_SESSION['role'] == 'user' || $_SESSION['role'] == 'admin') : ?>
+                        <?php if (get_user('role') == 'user') : ?>
                             <div class="px-4">
                                 <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3" data-bs-toggle="modal" data-bs-target="#tambahpegawai">
                                     Tambah Pegawai

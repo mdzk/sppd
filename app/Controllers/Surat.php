@@ -12,19 +12,63 @@ class Surat extends BaseController
     {
 
         $surat = new SuratModel();
-        $data = [
-            'surats'  => $surat->where('status', 'diajukan')->orderBy('created_at', 'DESC')->findAll(),
-        ];
+        if (get_user('role') == 'user') {
+            $data = [
+                'surats'  => $surat->where('id_users', get_user('id_users'))
+                    ->where('status', 'diajukan')
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
+            ];
+        } else {
+            $data = [
+                'surats'  => $surat->where('status', 'diajukan')
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
+            ];
+        }
+
         return view('admin/surat', $data);
+    }
+
+    public function diproses()
+    {
+
+        $surat = new SuratModel();
+        if (get_user('role') == 'user') {
+            $data = [
+                'surats'  => $surat->where('status', 'diproses')
+                ->where('id_users', get_user('id_users'))
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
+            ];
+        } else {
+            $data = [
+                'surats'  => $surat->where('status', 'diproses')
+                ->orderBy('created_at', 'DESC')
+                ->findAll(),
+            ];
+        }
+        return view('admin/surat-diproses', $data);
     }
 
     public function diterima()
     {
 
         $surat = new SuratModel();
-        $data = [
-            'surats'  => $surat->where('status', 'diterima')->orderBy('created_at', 'DESC')->findAll(),
-        ];
+        if (get_user('role') == 'user') {
+            $data = [
+                'surats'  => $surat->where('status', 'diterima')
+                    ->where('id_users', get_user('id_users'))
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
+            ];
+        } else {
+            $data = [
+                'surats'  => $surat->where('status', 'diterima')
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
+            ];
+        }
         return view('admin/surat-diterima', $data);
     }
 
@@ -32,12 +76,22 @@ class Surat extends BaseController
     {
 
         $surat = new SuratModel();
-        $data = [
-            'surats'  => $surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
-                ->where('hasil.surat_tugas_id IS NOT NULL')
-                ->where('status', 'selesai')
-                ->orderBy('created_at', 'DESC')->findAll(),
-        ];
+        if (get_user('role') == 'user') {
+            $data = [
+                'surats'  => $surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
+                    ->where('hasil.surat_tugas_id IS NOT NULL')
+                    ->where('status', 'selesai')
+                    ->where('id_users', get_user('id_users'))
+                    ->orderBy('created_at', 'DESC')->findAll(),
+            ];
+        } else {
+            $data = [
+                'surats'  => $surat->join('hasil', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id', 'left')
+                    ->where('hasil.surat_tugas_id IS NOT NULL')
+                    ->where('status', 'selesai')
+                    ->orderBy('created_at', 'DESC')->findAll(),
+            ];
+        }
         return view('admin/surat-selesai', $data);
     }
 
@@ -48,6 +102,11 @@ class Surat extends BaseController
         if ($surat->find($id) == NULL) {
             return redirect()->to('diajukan');
         }
+
+        if (get_user('role') == 'user' && !$surat->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
+        }
+
         $data = [
             'surat'  => $surat->find($id),
         ];
@@ -163,6 +222,7 @@ class Surat extends BaseController
                 'ttd_nip' => $this->request->getVar('ttd_nip'),
                 'ttd_golongan' => $this->request->getVar('ttd_golongan'),
                 'tipe' => $this->request->getVar('tipe'),
+                'id_users' => get_user('id_users'),
                 'status' => "diajukan",
             ]);
 
@@ -303,6 +363,10 @@ class Surat extends BaseController
         $pegawai = new PegawaiModel();
         $data = $surat->find($this->request->getVar('id_surat'));
 
+        if (get_user('role') == 'user' && !$surat->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
+        }
+
         $pegawai->where('id_surat_tugas', $data['id_surat_tugas'])->delete();
         $surat->delete($this->request->getVar('id_surat'));
         session()->setFlashdata('pesan', 'SPT berhasil dihapus');
@@ -319,6 +383,11 @@ class Surat extends BaseController
         if ($data == NULL) {
             return redirect()->back();
         }
+
+        if (get_user('role') == 'user' && !$surat->where('id_users', get_user('id_users'))->find($id)) {
+            return redirect()->to('/');
+        }
+
         $id = $data['id_surat_tugas'];
         $data = [
             'surat'  => $surat->find($id),
@@ -327,6 +396,23 @@ class Surat extends BaseController
             'kwitansi'  => $kwitansi->where('id_surat_tugas', $id)->findAll(),
         ];
         return view('admin/surat-show', $data);
+    }
+
+    public function process()
+    {
+        $surat = new SuratModel();
+        $data = $surat->find($this->request->getVar('id_surat'));
+
+        $data = [
+            'status' => "diproses",
+            // 'tanggal_ttd' => date('Y-m-d H:i:s'),
+        ];
+        $surat->set($data);
+        $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $surat->update();
+
+        session()->setFlashdata('pesan', 'SPT berhasil diproses');
+        return redirect()->back();
     }
 
     public function accept()
@@ -351,7 +437,7 @@ class Surat extends BaseController
         $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
         $surat->update();
 
-        session()->setFlashdata('pesan', 'SPT berhasil diverifikasi');
+        session()->setFlashdata('pesan', 'SPT berhasil diterima');
         return redirect()->back();
     }
 
