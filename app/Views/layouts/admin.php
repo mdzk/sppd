@@ -170,13 +170,63 @@
     <script src="<?= base_url(); ?>assets/extensions/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="<?= base_url(); ?>/assets/static/js/pages/simple-datatables.js"></script>
 
-    <script>
-        var wtf = $.ajax({
-            url: "<?= base_url() . '/api/terlaksana'; ?>",
-            async: false,
-            dataType: 'json'
-        }).responseJSON;
+    <?php if (get_url(2, '')) : ?>
+        <script>
+            <?php foreach ($users as $user) : ?>
+                $.ajax({
+                    url: "<?= base_url() . '/api/terlaksana/' . $user['id_users']; ?>",
+                    async: false,
+                    dataType: 'json',
+                    success: function(chartData) {
+                        var optionsProfileVisit = {
+                            annotations: {
+                                position: "back",
+                            },
+                            dataLabels: {
+                                enabled: false,
+                            },
+                            chart: {
+                                type: "bar",
+                                height: 300,
+                            },
+                            fill: {
+                                opacity: 1,
+                            },
+                            plotOptions: {},
+                            series: [{
+                                name: "SPT",
+                                data: chartData,
+                            }],
+                            colors: "#435ebe",
+                            xaxis: {
+                                categories: [
+                                    "Jan",
+                                    "Feb",
+                                    "Mar",
+                                    "Apr",
+                                    "May",
+                                    "Jun",
+                                    "Jul",
+                                    "Aug",
+                                    "Sep",
+                                    "Oct",
+                                    "Nov",
+                                    "Dec",
+                                ],
+                            },
+                        };
+                        var chartProfileVisit = new ApexCharts(
+                            document.querySelector(`#chart-profile-visit-<?= $user['id_users']; ?>`),
+                            optionsProfileVisit
+                        );
+                        chartProfileVisit.render();
+                    }
+                });
+            <?php endforeach; ?>
+        </script>
+    <?php endif; ?>
 
+    <script>
         let choices = document.querySelectorAll(".choices")
         let initChoice
         for (let i = 0; i < choices.length; i++) {
@@ -192,7 +242,6 @@
             }
         }
     </script>
-    <script src="<?= base_url(); ?>/assets/static/js/pages/dashboard.js"></script>
 
     <!-- Sweetalert -->
     <script src="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.min.js"></script>

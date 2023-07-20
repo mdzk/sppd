@@ -77,16 +77,24 @@
         </div>
     </div>
     <div class="row">
+
         <div class="col-lg-8 col-md-8 col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>SPT Terlaksana</h4>
+            <?php foreach ($users as $user) : ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>SPT Terlaksana <?= $user['name'] ?></h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Use 'id_users' as the identifier for the chart container -->
+                        <div id="chart-profile-visit-<?= $user['id_users'] ?>"></div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div id="chart-profile-visit"></div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
+
+
+
+
         <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="card">
                 <div class="card-header">

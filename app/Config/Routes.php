@@ -34,7 +34,7 @@ $routes->setAutoRoute(false);
 // }, ['as' => 'home', 'filter' => 'auth:admin']);
 
 $routes->get('/', 'Home::index', ['as' => 'home', 'filter' => 'auth']);
-$routes->get('/api/terlaksana', 'Home::terlaksana', ['as' => 'api-terlaksana', 'filter' => 'auth']);
+$routes->get('/api/terlaksana/(:segment)', 'Home::terlaksana/$1', ['as' => 'api-terlaksana', 'filter' => 'auth']);
 $routes->post('/pdf/spt', 'PdfController::spt', ['as' => 'pdf-spt', 'filter' => 'auth']);
 $routes->post('/pdf/hasil', 'PdfController::hasil', ['as' => 'pdf-hasil', 'filter' => 'auth']);
 $routes->post('/pdf/kwitansi', 'PdfController::kwitansi', ['as' => 'pdf-kwitansi', 'filter' => 'auth']);
@@ -87,7 +87,7 @@ $routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', '
 
 $routes->get('/diproses', 'Surat::diproses', ['as' => 'diproses', 'filter' => 'auth']);
 
-$routes->get('/diterima', 'Surat::diterima', [ 'as' => 'diterima', 'filter' => 'auth']);
+$routes->get('/diterima', 'Surat::diterima', ['as' => 'diterima', 'filter' => 'auth']);
 $routes->post('/diterima/finish', 'Surat::finish', ['as' => 'diterima-finish', 'filter' => 'auth']);
 
 $routes->get('/selesai', 'Surat::selesai', ['as' => 'selesai', 'filter' => 'auth']);

@@ -407,7 +407,7 @@
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="content-block powered-by">
-                                    &copy; Copyright <?= date('Y'); ?>, Kajian
+                                    &copy; Copyright <?= date('Y'); ?>
                                 </td>
                             </tr>
                         </table>

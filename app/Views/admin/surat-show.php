@@ -341,11 +341,8 @@
                                                 </button>
                                             </form>
 
-
-
-
                                             <?php if ($surat['bukti'] == NULL && $kwitansi[0]['status_kwitansi'] == 'diterima') : ?>
-                                                <?php if (get_user('role') == 'user' || get_user('role') == 'admin') : ?>
+                                                <?php if (get_user('role') == 'user') : ?>
                                                     <button class="btn btn-light-success btn-icon action-icon fw-bold h-auto" data-bs-toggle="modal" data-bs-target="#bukti">
                                                         <span class="fonticon-wrap">
                                                             <i class="bi bi-upload me-1"></i>
