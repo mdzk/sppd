@@ -19,11 +19,11 @@ class Home extends BaseController
         $userData = [];
 
         if (get_user('role') == 'admin' || get_user('role') == 'pimpinan') {
-            $userData = $usersModel->findAll(); 
+            $userData = $usersModel->where('role', 'user')->findAll();
         }
 
         if (get_user('role') == 'user') {
-            $userData = $usersModel->where('id_users', get_user('id_users'))->findAll(); 
+            $userData = $usersModel->where('id_users', get_user('id_users'))->findAll();
         }
 
         $data = [
@@ -31,7 +31,7 @@ class Home extends BaseController
             'diajukan'   => $surat->where('status', 'diajukan')->countAllResults(),
             'kwitansi'   => $kwitansi->where('status_kwitansi', 'diajukan')->countAllResults(),
             'surat' => $surat->where('status', 'diajukan')->limit(5)->orderBy('created_at', 'DESC')->findAll(),
-            'users' => $userData, 
+            'users' => $userData,
         ];
 
         return view('admin/home', $data);
@@ -44,9 +44,9 @@ class Home extends BaseController
 
         for ($i = 1; $i <= 12; $i++) {
             if (get_user('role') == 'admin' || get_user('role') == 'pimpinan') {
-                $bulan[] = $visitor->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
+                $bulan[] = $visitor->where('role', 'user')->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
             } elseif (get_user('role') == 'user') {
-                $bulan[] = $visitor->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
+                $bulan[] = $visitor->where('role', 'user')->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
             }
         }
 
