@@ -20,17 +20,25 @@ class Home extends BaseController
 
         if (get_user('role') == 'admin' || get_user('role') == 'pimpinan') {
             $userData = $usersModel->where('role', 'user')->findAll();
+            $terlaksanaData = $surat->where('status', 'selesai')->countAllResults();
+            $diajukanData = $surat->where('status', 'diajukan')->countAllResults();
+            $kwitansiData = $kwitansi->where('status_kwitansi', 'diajukan')->countAllResults();
+            $suratData = $surat->where('status', 'diajukan')->limit(5)->orderBy('created_at', 'DESC')->findAll();
         }
 
         if (get_user('role') == 'user') {
             $userData = $usersModel->where('id_users', get_user('id_users'))->findAll();
+            $terlaksanaData = $surat->where('status', 'selesai')->where('id_users', get_user('id_users'))->countAllResults();
+            $diajukanData = $surat->where('status', 'diajukan')->where('id_users', get_user('id_users'))->countAllResults();
+            $kwitansiData   = $kwitansi->where('status_kwitansi', 'diajukan')->join('surat_tugas', 'surat_tugas.id_surat_tugas = kwitansi.id_surat_tugas')->where('id_users', get_user('id_users'))->countAllResults();
+            $suratData = $surat->where('status', 'diajukan')->where('id_users', get_user('id_users'))->limit(5)->orderBy('created_at', 'DESC')->findAll();
         }
 
         $data = [
-            'terlaksana' => $surat->where('status', 'selesai')->countAllResults(),
-            'diajukan'   => $surat->where('status', 'diajukan')->countAllResults(),
-            'kwitansi'   => $kwitansi->where('status_kwitansi', 'diajukan')->countAllResults(),
-            'surat' => $surat->where('status', 'diajukan')->limit(5)->orderBy('created_at', 'DESC')->findAll(),
+            'terlaksana' => $terlaksanaData,
+            'diajukan'   => $diajukanData,
+            'kwitansi'   => $kwitansiData,
+            'surat' => $suratData,
             'users' => $userData,
         ];
 
