@@ -43,11 +43,7 @@ class Home extends BaseController
         $bulan = [];
 
         for ($i = 1; $i <= 12; $i++) {
-            if (get_user('role') == 'admin' || get_user('role') == 'pimpinan') {
-                $bulan[] = $visitor->where('role', 'user')->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
-            } elseif (get_user('role') == 'user') {
-                $bulan[] = $visitor->where('role', 'user')->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('id_users', $id_users)->countAllResults();
-            }
+            $bulan[] = $visitor->join('users', 'users.id_users = surat_tugas.id_users')->where('role', 'user')->where('MONTH(created_at)', $i)->where('YEAR(created_at)', date('Y'))->where('status', 'selesai')->where('surat_tugas.id_users', $id_users)->countAllResults();
         }
 
         return json_encode($bulan);
