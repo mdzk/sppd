@@ -195,7 +195,7 @@
                                                                     <label for="name">Nama</label>
                                                                     <div class="position-relative">
 
-                                                                        <input value="<?= $user['name']; ?>" type="text" name="name" class="form-control" placeholder="Masukkan nama" id="name">
+                                                                        <input disabled value="<?= $user['name']; ?>" type="text" name="name" class="form-control" placeholder="Masukkan nama" id="name">
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-person"></i>
                                                                         </div>
@@ -205,7 +205,7 @@
                                                                 <div class="form-group has-icon-left">
                                                                     <label for="email">Email</label>
                                                                     <div class="position-relative">
-                                                                        <input value="<?= $user['email']; ?>" type="text" name="email" class="form-control" placeholder="Masukkan Email" id="email">
+                                                                        <input disabled value="<?= $user['email']; ?>" type="text" name="email" class="form-control" placeholder="Masukkan Email" id="email">
                                                                         <div class="form-control-icon">
                                                                             <i class="bi bi-person-badge"></i>
                                                                         </div>
@@ -226,19 +226,7 @@
                                                                                                     } ?>>Pimpinan</option>
                                                                     </select>
                                                                 </div>
-
-                                                                <div class="form-group has-icon-left">
-                                                                    <label for="password">Password</label>
-                                                                    <div class="position-relative">
-                                                                        <input type="password" name="password" class="form-control" placeholder="Masukkan password" id="password">
-                                                                        <div class="form-control-icon">
-                                                                            <i class="bi bi-lock"></i>
-                                                                        </div>
-                                                                        <p>
-                                                                            <small class="text-muted">*Kosongkan jika tidak ingin mengubah password</small>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
+                                                                
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">

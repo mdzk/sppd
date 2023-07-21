@@ -84,24 +84,7 @@ class Users extends BaseController
     public function update()
     {
         $user = new UsersModel();
-        $data = $user->find($this->request->getVar('id_users'));
-        $id = $data['id_users'];
         if ($this->validate([
-            'name' => [
-                'label' => 'Nama',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} Wajib diisi !',
-                ]
-            ],
-            'email' => [
-                'label' => 'Email',
-                'rules' => "required|is_unique[users.email, id_users, $id]",
-                'errors' => [
-                    'required' => '{field} Wajib diisi !',
-                    'is_unique' => 'Email sudah digunakan, cari yang lain!'
-                ]
-            ],
             'role' => [
                 'label' => 'Role',
                 'rules' => 'required',
@@ -110,14 +93,13 @@ class Users extends BaseController
                 ]
             ],
         ])) {
-            $user->replace([
-                'id_users' => $this->request->getVar('id_users'),
-                'name' => $this->request->getVar('name'),
+            $data = [
                 'role' => $this->request->getVar('role'),
-                'email' => $this->request->getVar('email'),
-                'foto' => $data['foto'],
-                'password' => empty($this->request->getVar('password')) ? $data['password'] : password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-            ]);
+            ];
+
+            $user->set($data);
+            $user->where('id_users', $this->request->getVar('id_users'));
+            $user->update();
 
             session()->setFlashdata('pesan', 'Akun berhasil diedit');
             return redirect()->to('users');
