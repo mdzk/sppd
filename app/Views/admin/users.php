@@ -32,74 +32,6 @@
     <section class="section">
         <div class="row" id="basic-table">
             <div class="col-12 col-md-6">
-                <button class="btn btn-primary rounded-pill mb-4" data-bs-toggle="modal" data-bs-target="#tambahuser">+ Pengguna Baru</button>
-                <div class="modal fade text-left modal-borderless" id="tambahuser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-
-                        <form action="<?= route_to('users-add'); ?>" method="POST">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Registration</h5>
-                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                                        <i data-feather="x"></i>
-                                    </button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="form-group has-icon-left">
-                                        <label for="name">Nama</label>
-                                        <div class="position-relative">
-                                            <input type="text" name="name" class="form-control" placeholder="Masukkan nama" id="name">
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-person"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group has-icon-left">
-                                        <label for="email">Email</label>
-                                        <div class="position-relative">
-                                            <input type="text" name="email" class="form-control" placeholder="Masukkan Email" id="email">
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-person-badge"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="role">Roles</label>
-                                        <select class="form-select" name="role" id="role">
-                                            <option value="user">User</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="pimpinan">Pimpinan</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group has-icon-left">
-                                        <label for="password">Password</label>
-                                        <div class="position-relative">
-                                            <input required type="password" name="password" class="form-control" placeholder="Masukkan password" id="password">
-                                            <div class="form-control-icon">
-                                                <i class="bi bi-lock"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="reset" class="btn btn-light-primary">
-
-                                        <span class="d-sm-block">Reset</span>
-                                    </button>
-                                    <button name="submit" type="submit" class="btn btn-primary ml-1" data-bs-dismiss="modal">
-
-                                        <span class="d-sm-block">Registrasi</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
                 <div class="card">
 
                     <div class="card-content">
@@ -226,7 +158,7 @@
                                                                                                     } ?>>Pimpinan</option>
                                                                     </select>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
