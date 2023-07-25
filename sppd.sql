@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 20, 2023 at 04:22 AM
+-- Generation Time: Jul 25, 2023 at 06:22 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,7 +44,7 @@ CREATE TABLE `hasil` (
 CREATE TABLE `kwitansi` (
   `id_kwitansi` int(11) NOT NULL,
   `nominal` int(11) NOT NULL,
-  `status_kwitansi` enum('diajukan','diterima') NOT NULL,
+  `status_kwitansi` enum('diajukan','diterima','selesai','diproses','tolak') NOT NULL,
   `kode_rekening` varchar(255) NOT NULL,
   `uraian` varchar(255) NOT NULL,
   `sumber` varchar(255) NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE `surat_tugas` (
   `nama` varchar(255) NOT NULL,
   `nomor` varchar(255) NOT NULL,
   `dasar` text DEFAULT NULL,
-  `status` enum('diajukan','diterima','selesai','diproses') NOT NULL,
+  `status` enum('diajukan','diterima','selesai','diproses','tolak') NOT NULL,
   `tanggal_pelaksanaan` date NOT NULL,
   `waktu` varchar(255) NOT NULL,
   `tempat` varchar(255) NOT NULL,
@@ -128,7 +128,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_users`, `name`, `email`, `password`, `role`, `foto`) VALUES
 (2, 'Muhammad Dzaky', 'admin@mail.com', '$2y$10$4UDQyhiz801cUw50KR008uHU2Cgu05OyTF8w7AzggtzGF4kKXrwy2', 'admin', 'default.jpg'),
 (4, 'Kasubag Umum', 'pimpinan@mail.com', '$2y$10$PqQXLr7cjChaEK6L.YAykuA/0m561ZCGcSr1cnXGqMEXfLEUlYaAu', 'pimpinan', 'default.jpg'),
-(7, 'Staff Sekretaris', 'user@mail.com', '$2y$10$dDwuHmXfZeGZJ47OmGdXWeKwiPwOY37w6thu6.DK8vmKs6vcQBVqm', 'user', 'default.jpg');
+(7, 'Staff Sekretaris', 'user@mail.com', '$2y$10$dDwuHmXfZeGZJ47OmGdXWeKwiPwOY37w6thu6.DK8vmKs6vcQBVqm', 'user', 'default.jpg'),
+(18, 'Staff Kominfo', 'user2@mail.com', '$2y$10$tsJska5u6d0DNZo2CkqOc.x12KXDF7jq3sXgSYf1WM/RnXd46oOWK', 'user', 'default.jpg');
 
 --
 -- Indexes for dumped tables
@@ -178,25 +179,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `hasil`
 --
 ALTER TABLE `hasil`
-  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_hasil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `kwitansi`
 --
 ALTER TABLE `kwitansi`
-  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_kwitansi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `surat_tugas`
 --
 ALTER TABLE `surat_tugas`
-  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_surat_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `tokens`
@@ -208,7 +209,7 @@ ALTER TABLE `tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
