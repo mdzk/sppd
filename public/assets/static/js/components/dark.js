@@ -17,7 +17,7 @@ function toggleDarkTheme() {
 function setTheme(theme, persist = false) {
   document.body.classList.add(theme)
   document.documentElement.setAttribute('data-bs-theme', theme)
-  
+
   if (persist) {
     localStorage.setItem(THEME_KEY, theme)
   }
@@ -48,17 +48,17 @@ function initTheme() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const toggler = document.getElementById("toggle-dark")
-  const theme = localStorage.getItem(THEME_KEY)
+  // const toggler = document.getElementById("toggle-dark")
+  // const theme = localStorage.getItem(THEME_KEY)
 
-  if(toggler) {
-    toggler.checked = theme === "dark"
-    
-    toggler.addEventListener("input", (e) => {
-      setTheme(e.target.checked ? "dark" : "light", true)
-    })
-  }
+  // if(toggler) {
+  //   toggler.checked = theme === "dark"
 
+  //   toggler.addEventListener("input", (e) => {
+  //     setTheme(e.target.checked ? "dark" : "light", true)
+  //   })
+  // }
+  setTheme("dark", true)
 });
 
 initTheme()

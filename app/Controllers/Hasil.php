@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\HasilModel;
+use App\Models\KwitansiModel;
 use App\Models\SuratModel;
 
 class Hasil extends BaseController
@@ -95,6 +96,17 @@ class Hasil extends BaseController
             $surat->where('id_surat_tugas', $id_spt);
             $surat->update();
 
+            $kwitansi = new KwitansiModel();
+            $dataKwitansi = $kwitansi->where('id_surat_tugas', $id_spt)
+                ->find();
+
+            $dataKwitansi = [
+                'status_kwitansi' => $status,
+            ];
+            $kwitansi->set($dataKwitansi);
+            $kwitansi->where('id_surat_tugas', $id_spt);
+            $kwitansi->update();
+
             session()->setFlashdata('pesan', 'Laporan Perjalanan berhasil ditambahkan');
             return redirect()->to('hasil');
         } else {
@@ -108,7 +120,7 @@ class Hasil extends BaseController
     {
         $hasil = new HasilModel();
 
-        if (get_user('role') == 'user' && !$hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->where('id_users', get_user('id_users'))->find($id)) {
+        if (get_user('role') == 'user' && !$hasil->join('surat_tugas', 'surat_tugas.id_surat_tugas = hasil.surat_tugas_id')->where('id_users', get_user('id_users'))->find($this->request->getVar('id_hasil'))) {
             return redirect()->to('/');
         }
 
@@ -125,6 +137,17 @@ class Hasil extends BaseController
         $surat->set($data);
         $surat->where('id_surat_tugas', $suratTugasId);
         $surat->update();
+
+        $kwitansi = new KwitansiModel();
+        $dataKwitansi = $kwitansi->where('id_surat_tugas', $suratTugasId)
+            ->find();
+
+        $dataKwitansi = [
+            'status_kwitansi' => 'diterima',
+        ];
+        $kwitansi->set($dataKwitansi);
+        $kwitansi->where('id_surat_tugas', $suratTugasId);
+        $kwitansi->update();
 
         $hasil->delete($this->request->getVar('id_hasil'));
 

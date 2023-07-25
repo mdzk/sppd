@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="<?= base_url(); ?>/assets/compiled/png/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/app-dark.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/compiled/css/iconly.css" />
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/extensions/sweetalert2/sweetalert2.min.css" />
@@ -25,7 +26,7 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="logo">
+                        <div class="logo ms-auto me-auto">
                             <a href="index.html"><img src="<?= base_url(); ?>/assets/compiled/png/logo.png" alt="Logo" srcset="" /></a>
                         </div>
                         <div class="sidebar-toggler x">
@@ -138,6 +139,7 @@
             </footer>
         </div>
     </div>
+    <script src="<?= base_url(); ?>/assets/static/js/components/dark.js"></script>
     <script src="<?= base_url(); ?>/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
     <script src="<?= base_url(); ?>/assets/compiled/js/app.js"></script>

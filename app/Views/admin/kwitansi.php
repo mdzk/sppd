@@ -48,8 +48,8 @@
                                 <td><?= $data['nama']; ?></td>
                                 <td><?= tanggal($data['tanggal_pelaksanaan']); ?></td>
                                 <td>
-                                    <?php if ($data['status_kwitansi'] == 'diajukan') : ?>
-                                        <span class="badge bg-primary">Diajukan</span>
+                                    <?php if ($data['status_kwitansi'] !== 'diterima') : ?>
+                                        <span class="badge bg-primary"><?= $data['status_kwitansi']; ?></span>
                                     <?php endif; ?>
                                     <?php if ($data['status_kwitansi'] == 'diterima') : ?>
                                         <span class="badge bg-success">Diterima</span>

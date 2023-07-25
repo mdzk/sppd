@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KwitansiModel;
+use App\Models\SuratModel;
 
 class Kwitansi extends BaseController
 {
@@ -116,6 +117,16 @@ class Kwitansi extends BaseController
             $kwitansi->set($data);
             $kwitansi->where('id_kwitansi', $this->request->getVar('id_kwitansi'));
             $kwitansi->update();
+
+            $surat = new SuratModel();
+            $dataSurat = $surat->find($this->request->getVar('id_surat'));
+
+            $dataSurat = [
+                    'status' => "diajukan",
+                ];
+            $surat->set($dataSurat);
+            $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $surat->update();
 
             session()->setFlashdata('pesan', 'Kwitansi berhasil diedit');
             return redirect()->back();

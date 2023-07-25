@@ -83,6 +83,7 @@ $routes->post('/diajukan/save', 'Surat::save', ['as' => 'diajukan-save', 'filter
 $routes->post('/diajukan/update', 'Surat::update', ['as' => 'diajukan-update', 'filter' => 'auth:user']);
 $routes->post('/diajukan/delete', 'Surat::delete', ['as' => 'diajukan-delete', 'filter' => 'auth:user']);
 $routes->post('/diajukan/process', 'Surat::process', ['as' => 'diajukan-process', 'filter' => 'auth:admin']);
+$routes->post('/diajukan/tolak', 'Surat::decline', ['as' => 'diajukan-decline', 'filter' => 'auth:admin']);
 $routes->post('/diajukan/accept', 'Surat::accept', ['as' => 'diajukan-accept', 'filter' => 'auth:pimpinan']);
 
 $routes->get('/diproses', 'Surat::diproses', ['as' => 'diproses', 'filter' => 'auth']);

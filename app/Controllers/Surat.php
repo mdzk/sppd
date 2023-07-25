@@ -15,13 +15,13 @@ class Surat extends BaseController
         if (get_user('role') == 'user') {
             $data = [
                 'surats'  => $surat->where('id_users', get_user('id_users'))
-                    ->where('status', 'diajukan')
+                    ->whereIn('status', ['diajukan', 'tolak'])
                     ->orderBy('created_at', 'DESC')
                     ->findAll(),
             ];
         } else {
             $data = [
-                'surats'  => $surat->where('status', 'diajukan')
+                'surats'  => $surat->whereIn('status', ['diajukan', 'tolak'])
                     ->orderBy('created_at', 'DESC')
                     ->findAll(),
             ];
@@ -37,15 +37,15 @@ class Surat extends BaseController
         if (get_user('role') == 'user') {
             $data = [
                 'surats'  => $surat->where('status', 'diproses')
-                ->where('id_users', get_user('id_users'))
+                    ->where('id_users', get_user('id_users'))
                     ->orderBy('created_at', 'DESC')
                     ->findAll(),
             ];
         } else {
             $data = [
                 'surats'  => $surat->where('status', 'diproses')
-                ->orderBy('created_at', 'DESC')
-                ->findAll(),
+                    ->orderBy('created_at', 'DESC')
+                    ->findAll(),
             ];
         }
         return view('admin/surat-diproses', $data);
@@ -361,12 +361,14 @@ class Surat extends BaseController
     {
         $surat = new SuratModel();
         $pegawai = new PegawaiModel();
+        $kwitansi = new KwitansiModel();
         $data = $surat->find($this->request->getVar('id_surat'));
 
-        if (get_user('role') == 'user' && !$surat->where('id_users', get_user('id_users'))->find($id)) {
+        if (get_user('role') == 'user' && !$surat->where('id_users', get_user('id_users'))->find($this->request->getVar('id_surat'))) {
             return redirect()->to('/');
         }
 
+        $kwitansi->where('id_surat_tugas', $data['id_surat_tugas'])->delete();
         $pegawai->where('id_surat_tugas', $data['id_surat_tugas'])->delete();
         $surat->delete($this->request->getVar('id_surat'));
         session()->setFlashdata('pesan', 'SPT berhasil dihapus');
@@ -411,7 +413,45 @@ class Surat extends BaseController
         $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
         $surat->update();
 
+        $kwitansi = new KwitansiModel();
+        $dataKwitansi = $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'))
+        ->find();
+
+        $dataKwitansi = [
+            'status_kwitansi' => "diproses",
+        ];
+        $kwitansi->set($dataKwitansi);
+        $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $kwitansi->update();
+
         session()->setFlashdata('pesan', 'SPT berhasil diproses');
+        return redirect()->back();
+    }
+
+    public function decline()
+    {
+        $surat = new SuratModel();
+        $data = $surat->find($this->request->getVar('id_surat'));
+
+        $data = [
+            'status' => "tolak",
+        ];
+        $surat->set($data);
+        $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $surat->update();
+
+        $kwitansi = new KwitansiModel();
+        $dataKwitansi = $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'))
+            ->find();
+
+        $dataKwitansi = [
+            'status_kwitansi' => "tolak",
+        ];
+        $kwitansi->set($dataKwitansi);
+        $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $kwitansi->update();
+
+        session()->setFlashdata('pesan', 'SPT berhasil ditolak');
         return redirect()->back();
     }
 
@@ -436,6 +476,17 @@ class Surat extends BaseController
         $surat->set($data);
         $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
         $surat->update();
+
+        $kwitansi = new KwitansiModel();
+        $dataKwitansi = $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'))
+        ->find();
+
+        $dataKwitansi = [
+            'status_kwitansi' => "diterima",
+        ];
+        $kwitansi->set($dataKwitansi);
+        $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $kwitansi->update();
 
         session()->setFlashdata('pesan', 'SPT berhasil diterima');
         return redirect()->back();
@@ -483,6 +534,17 @@ class Surat extends BaseController
             $surat->update();
 
             $file->move('bukti', $nama_file);
+
+            $kwitansi = new KwitansiModel();
+            $dataKwitansi = $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'))
+            ->find();
+
+            $dataKwitansi = [
+                'status_kwitansi' => $status,
+            ];
+            $kwitansi->set($dataKwitansi);
+            $kwitansi->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $kwitansi->update();
 
             session()->setFlashdata('pesan', 'Bukti berhasil diupload');
             return redirect()->back();

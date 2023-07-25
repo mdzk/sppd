@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PegawaiModel;
+use App\Models\SuratModel;
 
 class Pegawai extends BaseController
 {
@@ -33,6 +34,16 @@ class Pegawai extends BaseController
                 'pangkat' => empty($this->request->getVar('pangkat')) ? NULL : $this->request->getVar('pangkat'),
                 'id_surat_tugas' => $id_spt,
             ]);
+
+            $surat = new SuratModel();
+            $data = $surat->find($this->request->getVar('id_surat'));
+
+            $data = [
+                'status' => "diajukan",
+            ];
+            $surat->set($data);
+            $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $surat->update();
 
             session()->setFlashdata('pesan', 'Pegawai berhasil ditambahkan');
             return redirect()->back();
@@ -73,6 +84,16 @@ class Pegawai extends BaseController
                 'id_surat_tugas' => $id_spt,
             ]);
 
+            $surat = new SuratModel();
+            $data = $surat->find($this->request->getVar('id_surat'));
+
+            $data = [
+                'status' => "diajukan",
+            ];
+            $surat->set($data);
+            $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+            $surat->update();
+
             session()->setFlashdata('pesan', 'Pegawai berhasil diedit');
             return redirect()->to("diajukan/detail/$id_spt");
         } else {
@@ -85,6 +106,16 @@ class Pegawai extends BaseController
     public function delete()
     {
         $pegawai = new PegawaiModel();
+        $surat = new SuratModel();
+        $data = $surat->find($this->request->getVar('id_surat'));
+
+        $data = [
+            'status' => "diajukan",
+        ];
+        $surat->set($data);
+        $surat->where('id_surat_tugas', $this->request->getVar('id_surat'));
+        $surat->update();
+
         $pegawai->delete($this->request->getVar('id_pegawai'));
         session()->setFlashdata('pesan', 'Pegawai berhasil dihapus');
         return redirect()->back();
